@@ -1,10 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { GitBranch, Users, Activity, CheckCircle2, Clock, AlertCircle, BarChart3, MessageSquare } from 'lucide-react'
+import { GitBranch, Users, Activity, CheckCircle2, Clock, AlertCircle, BarChart3, MessageSquare, Globe } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
+import PMControl from '@/components/PMControl'
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('overview')
+  const { language, setLanguage, t } = useLanguage()
   const [githubData, setGithubData] = useState({
     issues: [],
     pullRequests: [],
@@ -24,12 +27,20 @@ export default function Dashboard() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                AI Orchestra Dashboard 🎭
+                {t.header.title}
               </h1>
             </div>
             <div className="flex items-center space-x-4">
+              {/* Language Toggle Button */}
+              <button
+                onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
+                className="flex items-center gap-2 px-3 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              >
+                <Globe className="h-4 w-4" />
+                {language === 'ko' ? 'EN' : '한국어'}
+              </button>
               <span className="text-sm text-gray-500 dark:text-gray-400">
-                Status: <span className="text-green-500">● Connected</span>
+                {t.header.status}: <span className="text-green-500">● {t.header.connected}</span>
               </span>
             </div>
           </div>
@@ -40,19 +51,25 @@ export default function Dashboard() {
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex space-x-8" aria-label="Tabs">
-            {['overview', 'github', 'ai-agents', 'workflows'].map((tab) => (
+            {Object.entries({
+              overview: t.tabs.overview,
+              github: t.tabs.github,
+              'ai-agents': t.tabs.aiAgents,
+              workflows: t.tabs.workflows,
+              'pm-control': t.tabs.pmControl
+            }).map(([key, label]) => (
               <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
+                key={key}
+                onClick={() => setActiveTab(key)}
                 className={`
-                  py-4 px-1 border-b-2 font-medium text-sm capitalize
-                  ${activeTab === tab
+                  py-4 px-1 border-b-2 font-medium text-sm
+                  ${activeTab === key
                     ? 'border-blue-500 text-blue-600 dark:text-blue-400'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
                   }
                 `}
               >
-                {tab.replace('-', ' ')}
+                {label}
               </button>
             ))}
           </nav>
@@ -67,58 +84,62 @@ export default function Dashboard() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <StatCard
-                title="Active Issues"
+                title={t.overview.stats.activeIssues}
                 value="12"
                 icon={<AlertCircle className="h-5 w-5" />}
-                trend="+2 from yesterday"
+                trend={`+2 ${t.common.from} ${t.common.yesterday}`}
                 color="yellow"
               />
               <StatCard
-                title="Open PRs"
+                title={t.overview.stats.openPRs}
                 value="5"
                 icon={<GitBranch className="h-5 w-5" />}
-                trend="3 ready to merge"
+                trend={`3 ${t.common.readyToMerge}`}
                 color="blue"
               />
               <StatCard
-                title="AI Sessions"
+                title={t.overview.stats.aiSessions}
                 value="3"
                 icon={<Users className="h-5 w-5" />}
-                trend="2 active now"
+                trend={`2 ${t.common.activeNow}`}
                 color="green"
               />
               <StatCard
-                title="Tasks Completed"
+                title={t.overview.stats.tasksCompleted}
                 value="28"
                 icon={<CheckCircle2 className="h-5 w-5" />}
-                trend="+15 this week"
+                trend={`+15 ${t.common.thisWeek}`}
                 color="purple"
               />
             </div>
 
             {/* Recent Activity */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Recent Activity</h2>
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t.overview.recentActivity}</h2>
               <div className="space-y-3">
                 <ActivityItem
                   type="github"
-                  message="New issue #42 created: 'Implement user authentication'"
-                  time="5 minutes ago"
+                  message={`${t.overview.activities.newIssue}: #42 'Implement user authentication'`}
+                  time={`5 ${t.common.minutesAgo}`}
+                  t={t}
                 />
                 <ActivityItem
                   type="ai"
-                  message="Claude completed code review for PR #38"
-                  time="15 minutes ago"
+                  message={`Claude ${t.overview.activities.prReview} #38`}
+                  time={`15 ${t.common.minutesAgo}`}
+                  t={t}
                 />
                 <ActivityItem
                   type="workflow"
-                  message="Deployment pipeline triggered for main branch"
-                  time="1 hour ago"
+                  message={t.overview.activities.deployment}
+                  time={`1 ${language === 'ko' ? '시간 전' : 'hour ago'}`}
+                  t={t}
                 />
                 <ActivityItem
                   type="github"
-                  message="PR #37 merged: 'Add dashboard components'"
-                  time="2 hours ago"
+                  message={`${t.overview.activities.prMerged}: #37 'Add dashboard components'`}
+                  time={`2 ${t.common.hoursAgo}`}
+                  t={t}
                 />
               </div>
             </div>
@@ -131,7 +152,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Issues List */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Open Issues</h2>
+                <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t.github.openIssues}</h2>
                 <div className="space-y-3">
                   <IssueItem
                     number={42}
@@ -156,25 +177,28 @@ export default function Dashboard() {
 
               {/* Pull Requests */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Pull Requests</h2>
+                <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t.github.pullRequests}</h2>
                 <div className="space-y-3">
                   <PRItem
                     number={38}
                     title="Add user profile component"
                     status="review"
                     checks="passing"
+                    t={t}
                   />
                   <PRItem
                     number={36}
                     title="Update dependencies"
                     status="ready"
                     checks="passing"
+                    t={t}
                   />
                   <PRItem
                     number={35}
                     title="Refactor database models"
                     status="draft"
                     checks="pending"
+                    t={t}
                   />
                 </div>
               </div>
@@ -191,83 +215,106 @@ export default function Dashboard() {
                 status="active"
                 currentTask="Reviewing PR #38"
                 tasksCompleted={15}
-                role="Project Manager"
+                role={t.aiAgents.roles.pm}
+                t={t}
               />
               <AIAgentCard
                 name="Dev Codex"
                 status="active"
                 currentTask="Implementing auth system"
                 tasksCompleted={22}
-                role="Backend Developer"
+                role={t.aiAgents.roles.backend}
+                t={t}
               />
               <AIAgentCard
                 name="UX Gemini"
                 status="idle"
-                currentTask="None"
+                currentTask={t.common.none}
                 tasksCompleted={8}
-                role="Content & UX"
+                role={t.aiAgents.roles.ux}
+                t={t}
               />
             </div>
 
             {/* AI Discussion Panel */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">AI Discussion</h2>
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t.aiAgents.discussion}</h2>
               <div className="space-y-3">
                 <DiscussionMessage
                   agent="PM Claude"
-                  message="We need to prioritize the authentication feature for the next sprint."
-                  time="10 minutes ago"
+                  message={language === 'ko' 
+                    ? "다음 스프린트를 위해 인증 기능을 우선순위로 두어야 합니다."
+                    : "We need to prioritize the authentication feature for the next sprint."}
+                  time={`10 ${t.common.minutesAgo}`}
                 />
                 <DiscussionMessage
                   agent="Dev Codex"
-                  message="I can start implementing the JWT token system today."
-                  time="8 minutes ago"
+                  message={language === 'ko'
+                    ? "오늘 JWT 토큰 시스템 구현을 시작할 수 있습니다."
+                    : "I can start implementing the JWT token system today."}
+                  time={`8 ${t.common.minutesAgo}`}
                 />
                 <DiscussionMessage
                   agent="UX Gemini"
-                  message="I'll prepare the user flow documentation for the auth process."
-                  time="5 minutes ago"
+                  message={language === 'ko'
+                    ? "인증 프로세스를 위한 사용자 플로우 문서를 준비하겠습니다."
+                    : "I'll prepare the user flow documentation for the auth process."}
+                  time={`5 ${t.common.minutesAgo}`}
                 />
               </div>
             </div>
           </div>
         )}
 
+        {/* PM Control Tab */}
+        {activeTab === 'pm-control' && (
+          <PMControl />
+        )}
+
         {/* Workflows Tab */}
         {activeTab === 'workflows' && (
           <div className="space-y-6">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Active Workflows</h2>
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t.workflows.active}</h2>
               <div className="space-y-4">
                 <WorkflowItem
-                  name="Document Creation Pipeline"
+                  name={language === 'ko' ? "문서 생성 파이프라인" : "Document Creation Pipeline"}
                   status="running"
                   progress={65}
-                  description="Generating API documentation with AI assistance"
+                  description={language === 'ko' 
+                    ? "AI 지원으로 API 문서 생성 중"
+                    : "Generating API documentation with AI assistance"}
+                  t={t}
                 />
                 <WorkflowItem
-                  name="Code Review Automation"
+                  name={language === 'ko' ? "코드 리뷰 자동화" : "Code Review Automation"}
                   status="completed"
                   progress={100}
-                  description="Automated review of PR #38 completed"
+                  description={language === 'ko'
+                    ? "PR #38 자동 리뷰 완료"
+                    : "Automated review of PR #38 completed"}
+                  t={t}
                 />
                 <WorkflowItem
-                  name="Issue Triage"
+                  name={language === 'ko' ? "이슈 분류" : "Issue Triage"}
                   status="pending"
                   progress={0}
-                  description="Waiting for new issues to process"
+                  description={language === 'ko'
+                    ? "새 이슈 처리 대기 중"
+                    : "Waiting for new issues to process"}
+                  t={t}
                 />
               </div>
             </div>
 
             {/* Quick Actions */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Quick Actions</h2>
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t.workflows.quickActions}</h2>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <ActionButton label="Create Issue" icon="📝" />
-                <ActionButton label="Start AI Discussion" icon="💬" />
-                <ActionButton label="Deploy to Production" icon="🚀" />
-                <ActionButton label="Generate Report" icon="📊" />
+                <ActionButton label={t.workflows.actions.createIssue} icon="📝" />
+                <ActionButton label={t.workflows.actions.startDiscussion} icon="💬" />
+                <ActionButton label={t.workflows.actions.deploy} icon="🚀" />
+                <ActionButton label={t.workflows.actions.generateReport} icon="📊" />
               </div>
             </div>
           </div>
@@ -298,7 +345,7 @@ function StatCard({ title, value, icon, trend, color }: any) {
   )
 }
 
-function ActivityItem({ type, message, time }: any) {
+function ActivityItem({ type, message, time, t }: any) {
   const icons = {
     github: <GitBranch className="h-4 w-4" />,
     ai: <Users className="h-4 w-4" />,
@@ -336,11 +383,17 @@ function IssueItem({ number, title, labels, assignee }: any) {
   )
 }
 
-function PRItem({ number, title, status, checks }: any) {
+function PRItem({ number, title, status, checks, t }: any) {
   const statusColors = {
     review: 'text-yellow-600',
     ready: 'text-green-600',
     draft: 'text-gray-600'
+  }
+
+  const statusText = {
+    review: t.github.status.review,
+    ready: t.github.status.ready,
+    draft: t.github.status.draft
   }
 
   return (
@@ -349,8 +402,8 @@ function PRItem({ number, title, status, checks }: any) {
         <div>
           <span className="text-sm font-medium text-gray-900 dark:text-white">#{number} {title}</span>
           <div className="flex items-center gap-2 mt-1">
-            <span className={`text-xs ${statusColors[status]}`}>{status}</span>
-            <span className="text-xs text-gray-500">• Checks: {checks}</span>
+            <span className={`text-xs ${statusColors[status]}`}>{statusText[status]}</span>
+            <span className="text-xs text-gray-500">• {t.github.checks}: {checks}</span>
           </div>
         </div>
       </div>
@@ -358,7 +411,7 @@ function PRItem({ number, title, status, checks }: any) {
   )
 }
 
-function AIAgentCard({ name, status, currentTask, tasksCompleted, role }: any) {
+function AIAgentCard({ name, status, currentTask, tasksCompleted, role, t }: any) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
       <div className="flex items-center justify-between mb-4">
@@ -366,12 +419,12 @@ function AIAgentCard({ name, status, currentTask, tasksCompleted, role }: any) {
         <span className={`px-2 py-1 text-xs rounded-full ${
           status === 'active' ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600'
         }`}>
-          {status}
+          {status === 'active' ? t.aiAgents.status.active : t.aiAgents.status.idle}
         </span>
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{role}</p>
-      <p className="text-sm text-gray-900 dark:text-white mb-1">Current: {currentTask}</p>
-      <p className="text-xs text-gray-500 dark:text-gray-400">Tasks completed: {tasksCompleted}</p>
+      <p className="text-sm text-gray-900 dark:text-white mb-1">{t.aiAgents.current}: {currentTask}</p>
+      <p className="text-xs text-gray-500 dark:text-gray-400">{t.aiAgents.tasksCompleted}: {tasksCompleted}</p>
     </div>
   )
 }
@@ -393,18 +446,24 @@ function DiscussionMessage({ agent, message, time }: any) {
   )
 }
 
-function WorkflowItem({ name, status, progress, description }: any) {
+function WorkflowItem({ name, status, progress, description, t }: any) {
   const statusColors = {
     running: 'bg-blue-500',
     completed: 'bg-green-500',
     pending: 'bg-gray-300'
   }
 
+  const statusText = {
+    running: t.workflows.status.running,
+    completed: t.workflows.status.completed,
+    pending: t.workflows.status.pending
+  }
+
   return (
     <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
       <div className="flex justify-between items-start mb-2">
         <h3 className="font-medium text-gray-900 dark:text-white">{name}</h3>
-        <span className="text-xs text-gray-500 dark:text-gray-400">{status}</span>
+        <span className="text-xs text-gray-500 dark:text-gray-400">{statusText[status]}</span>
       </div>
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{description}</p>
       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
