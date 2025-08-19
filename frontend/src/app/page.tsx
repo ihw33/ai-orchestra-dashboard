@@ -4,9 +4,14 @@ import { useState, useEffect } from 'react'
 import { GitBranch, Users, Activity, CheckCircle2, Clock, AlertCircle, BarChart3, MessageSquare, Globe } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import PMControl from '@/components/PMControl'
+import ProjectSelector from '@/components/ProjectSelector'
+import ProjectCard from '@/components/ProjectCard'
+import UnifiedMetrics from '@/components/UnifiedMetrics'
+import { PROJECT_LIST } from '@/config/projects'
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState('overview')
+  const [activeTab, setActiveTab] = useState('projects')
+  const [selectedProject, setSelectedProject] = useState<string>('')
   const { language, setLanguage, t } = useLanguage()
   const [githubData, setGithubData] = useState({
     issues: [],
@@ -31,6 +36,10 @@ export default function Dashboard() {
               </h1>
             </div>
             <div className="flex items-center space-x-4">
+              <ProjectSelector 
+                selectedProject={selectedProject}
+                onProjectSelect={setSelectedProject}
+              />
               {/* Language Toggle Button */}
               <button
                 onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
@@ -52,6 +61,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex space-x-8" aria-label="Tabs">
             {Object.entries({
+              projects: 'Projects',
               overview: t.tabs.overview,
               github: t.tabs.github,
               'ai-agents': t.tabs.aiAgents,
@@ -78,6 +88,31 @@ export default function Dashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Projects Tab */}
+        {activeTab === 'projects' && (
+          <div className="space-y-6">
+            <div>
+              <h2 className="text-xl font-semibold mb-4">All Projects</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {PROJECT_LIST.map((project) => (
+                  <ProjectCard 
+                    key={project.id} 
+                    project={project}
+                    metrics={{
+                      issues: { open: 12, closed: 45 },
+                      pulls: { open: 3, merged: 18 },
+                      commits: 87,
+                      lastActivity: '2 mins ago',
+                      status: project.id === 'iwl-v5' ? 'active' : project.id === 'ai-engine' ? 'idle' : undefined
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+            <UnifiedMetrics />
+          </div>
+        )}
+
         {/* Overview Tab */}
         {activeTab === 'overview' && (
           <div className="space-y-6">

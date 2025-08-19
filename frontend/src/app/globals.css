@@ -1,4 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
+@layer utilities {
+  .text-h1 {
+    @apply text-4xl font-bold leading-tight;
+  }
+
+  .text-h2 {
+    @apply text-3xl font-semibold leading-tight;
+  }
+
+  .text-h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  .text-h4 {
+    @apply text-xl font-medium;
+  }
+
+  .text-body {
+    @apply text-base leading-relaxed;
+  }
+
+  .text-small {
+    @apply text-sm;
+  }
+
+  .text-caption {
+    @apply text-xs text-gray-600 dark:text-gray-400;
+  }
+}
 
 :root {
   --background: #ffffff;

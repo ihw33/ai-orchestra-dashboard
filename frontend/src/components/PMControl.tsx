@@ -18,6 +18,7 @@ interface TaskAssignment {
   task: string
   priority: string
   status: string
+  project?: string
 }
 
 export default function PMControl() {

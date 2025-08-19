@@ -16,6 +16,7 @@ load_dotenv()
 
 # Import routers
 from app.routers import pm_router
+from app.routers import projects_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -121,6 +122,7 @@ async def github_webhook(payload: dict):
 
 # Include routers
 app.include_router(pm_router.router)
+app.include_router(projects_router.router)
 # app.include_router(github.router, prefix="/api/github", tags=["github"])
 # app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
 # app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
