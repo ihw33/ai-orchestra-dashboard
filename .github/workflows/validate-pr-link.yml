@@ -1,0 +1,18 @@
+name: PR Validation
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Fixes keyword
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+          if ! echo "$PR_BODY" | grep -E "Fixes #[0-9]+"; then
+            echo "❌ ERROR: PR must include 'Fixes #issue_number' in the description"
+            echo "Example: Fixes #25"
+            exit 1
+          fi
+          echo "✅ PR correctly linked to issue"

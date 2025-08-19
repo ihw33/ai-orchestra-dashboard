@@ -360,8 +360,17 @@ export default function Dashboard() {
 }
 
 // Component definitions
-function StatCard({ title, value, icon, trend, color }: any) {
-  const colorClasses = {
+type StatColor = 'yellow' | 'blue' | 'green' | 'purple'
+interface StatCardProps {
+  title: string
+  value: string
+  icon: React.ReactNode
+  trend: string
+  color: StatColor
+}
+
+function StatCard({ title, value, icon, trend, color }: StatCardProps) {
+  const colorClasses: Record<StatColor, string> = {
     yellow: 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-400',
     blue: 'bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-400',
     green: 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400',
@@ -380,8 +389,16 @@ function StatCard({ title, value, icon, trend, color }: any) {
   )
 }
 
-function ActivityItem({ type, message, time, t }: any) {
-  const icons = {
+type ActivityType = 'github' | 'ai' | 'workflow'
+interface ActivityItemProps {
+  type: ActivityType
+  message: string
+  time: string
+  t: any
+}
+
+function ActivityItem({ type, message, time, t }: ActivityItemProps) {
+  const icons: Record<ActivityType, React.ReactNode> = {
     github: <GitBranch className="h-4 w-4" />,
     ai: <Users className="h-4 w-4" />,
     workflow: <Activity className="h-4 w-4" />
@@ -418,14 +435,23 @@ function IssueItem({ number, title, labels, assignee }: any) {
   )
 }
 
-function PRItem({ number, title, status, checks, t }: any) {
-  const statusColors = {
+type PRStatus = 'review' | 'ready' | 'draft'
+interface PRItemProps {
+  number: number
+  title: string
+  status: PRStatus
+  checks: string
+  t: any
+}
+
+function PRItem({ number, title, status, checks, t }: PRItemProps) {
+  const statusColors: Record<PRStatus, string> = {
     review: 'text-yellow-600',
     ready: 'text-green-600',
     draft: 'text-gray-600'
   }
 
-  const statusText = {
+  const statusText: Record<PRStatus, string> = {
     review: t.github.status.review,
     ready: t.github.status.ready,
     draft: t.github.status.draft
@@ -481,14 +507,23 @@ function DiscussionMessage({ agent, message, time }: any) {
   )
 }
 
-function WorkflowItem({ name, status, progress, description, t }: any) {
-  const statusColors = {
+type WorkflowStatus = 'running' | 'completed' | 'pending'
+interface WorkflowItemProps {
+  name: string
+  status: WorkflowStatus
+  progress: number
+  description: string
+  t: any
+}
+
+function WorkflowItem({ name, status, progress, description, t }: WorkflowItemProps) {
+  const statusColors: Record<WorkflowStatus, string> = {
     running: 'bg-blue-500',
     completed: 'bg-green-500',
     pending: 'bg-gray-300'
   }
 
-  const statusText = {
+  const statusText: Record<WorkflowStatus, string> = {
     running: t.workflows.status.running,
     completed: t.workflows.status.completed,
     pending: t.workflows.status.pending

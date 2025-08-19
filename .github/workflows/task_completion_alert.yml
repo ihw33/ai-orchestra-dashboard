@@ -1,0 +1,41 @@
+name: Task Completion Alert
+
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [closed]
+
+jobs:
+  notify-completion:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.comment.body, '✅ 작업 완료') ||
+      contains(github.event.comment.body, 'COMPLETED') ||
+      github.event.action == 'closed'
+    
+    steps:
+      - name: Check completion status
+        id: check_status
+        run: |
+          echo "Issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
+          echo "Event: ${{ github.event_name }}"
+          
+      - name: Send notification
+        run: |
+          # 여기에 Slack, Email, 또는 다른 알림 서비스 연동
+          echo "🔔 작업 완료 알림!"
+          echo "Issue: ${{ github.event.issue.title }}"
+          echo "Reporter: ${{ github.event.comment.user.login || github.event.issue.user.login }}"
+          
+      - name: Add approval request comment
+        if: contains(github.event.comment.body, '✅ 작업 완료')
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🔍 작업 완료 보고가 접수되었습니다.\n\n승인 또는 추가 지시를 기다리고 있습니다.\n\n- ✅ 승인: `/approve` 댓글 작성\n- 📝 추가 작업: 구체적인 지시사항 작성'
+            })
