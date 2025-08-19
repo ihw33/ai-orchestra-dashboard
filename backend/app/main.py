@@ -5,7 +5,6 @@ FastAPI 메인 애플리케이션
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List
 import os
 from dotenv import load_dotenv
 
@@ -14,6 +13,10 @@ load_dotenv()
 
 # 라우터 임포트
 from app.routers import pm_router
+from app.routers import projects_router
+from app.connection_manager import manager
+from app.database import init_db
+from app.error_handlers import register_exception_handlers
 
 # FastAPI 앱 생성
 app = FastAPI(
@@ -40,27 +43,7 @@ app.add_middleware(
 
 # 라우터 등록
 app.include_router(pm_router.router)
-
-# WebSocket 연결 관리
-class ConnectionManager:
-    def __init__(self):
-        self.active_connections: List[WebSocket] = []
-
-    async def connect(self, websocket: WebSocket):
-        await websocket.accept()
-        self.active_connections.append(websocket)
-
-    def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove(websocket)
-
-    async def send_personal_message(self, message: str, websocket: WebSocket):
-        await websocket.send_text(message)
-
-    async def broadcast(self, message: str):
-        for connection in self.active_connections:
-            await connection.send_text(message)
-
-manager = ConnectionManager()
+app.include_router(projects_router.router)
 
 # 기본 엔드포인트
 @app.get("/")
@@ -115,6 +98,15 @@ async def startup_event():
     print("🚀 AI Orchestra Dashboard Backend Started")
     print(f"📖 Documentation: http://localhost:8000/docs")
     print(f"🔌 WebSocket: ws://localhost:8000/ws")
+    
+    # Register error handlers
+    register_exception_handlers(app)
+    
+    # Initialize database (create tables)
+    try:
+        init_db()
+    except Exception as e:
+        print(f"⚠️  DB init failed: {e}")
     
     # API 키 상태 확인
     if not os.getenv("GITHUB_TOKEN"):

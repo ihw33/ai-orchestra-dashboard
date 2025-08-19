@@ -193,5 +193,35 @@ class GitHubService:
             "added": True
         }
 
+    def get_commit_activity(self, repo_name: str) -> List[Dict]:
+        """Get commit activity for a repository"""
+        repo = self.get_repository(repo_name)
+        try:
+            stats = repo.get_stats_commit_activity()
+            if stats is None:
+                return []
+            return [{"week": s.week.isoformat(), "days": s.days, "total": s.total} for s in stats]
+        except GithubException as e:
+            if e.status == 202:
+                return [] # Data not cached yet
+            raise
+
+    def get_contributor_stats(self, repo_name: str) -> List[Dict]:
+        """Get contributor statistics for a repository"""
+        repo = self.get_repository(repo_name)
+        try:
+            stats = repo.get_stats_contributors()
+            if stats is None:
+                return []
+            return [{
+                "author": s.author.login,
+                "total": s.total,
+                "weeks": [{"w": w.w.isoformat(), "a": w.a, "d": w.d, "c": w.c} for w in s.weeks]
+            } for s in stats]
+        except GithubException as e:
+            if e.status == 202:
+                return [] # Data not cached yet
+            raise
+
 # Singleton instance
 github_service = GitHubService()
