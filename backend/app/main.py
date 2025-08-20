@@ -5,6 +5,7 @@ FastAPI 메인 애플리케이션
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from app.middleware.rate_limit import RateLimitMiddleware
 import os
 from dotenv import load_dotenv
 
@@ -40,6 +41,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add RateLimitMiddleware
+app.add_middleware(RateLimitMiddleware)
 
 # 라우터 등록
 app.include_router(pm_router.router)

@@ -7,6 +7,8 @@ from typing import Optional, Dict, Any
 from github import Github, GithubException
 from app.config import settings
 import logging
+import time
+from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
 
@@ -147,6 +149,47 @@ class GitHubService:
         except Exception as e:
             logger.error(f"Error getting rate limit: {e}")
             return {"error": str(e)}
+
+    def check_rate_limit(self):
+        """
+        Checks the GitHub API rate limit and waits if necessary.
+        """
+        if not self.client:
+            logger.warning("GitHub client not authenticated, cannot check rate limit.")
+            return
+
+        try:
+            rate_limit = self.client.get_rate_limit()
+            core = rate_limit.core
+
+            remaining = core.remaining
+            reset_timestamp = core.reset.timestamp() # Get Unix timestamp
+
+            logger.info(f"GitHub API Rate Limit: Remaining={remaining}, Reset at={datetime.fromtimestamp(reset_timestamp, tz=timezone.utc)}")
+
+            # If remaining calls are low (e.g., less than 10% of limit)
+            # Or if remaining is very low (e.g., < 10 calls)
+            if remaining < 50 or (remaining / core.limit < 0.1 and remaining < 100): # Thresholds can be adjusted
+                logger.warning(f"GitHub API rate limit is low. Remaining: {remaining}. Waiting until reset.")
+                self.wait_for_rate_limit(reset_timestamp)
+        except GithubException as e:
+            logger.error(f"Error checking GitHub rate limit: {e}")
+        except Exception as e:
+            logger.error(f"Unexpected error during rate limit check: {e}")
+
+    def wait_for_rate_limit(self, reset_timestamp: float):
+        """
+        Pauses execution until the GitHub API rate limit resets.
+        """
+        current_time = time.time()
+        sleep_time = reset_timestamp - current_time + 5 # Add a small buffer
+
+        if sleep_time > 0:
+            logger.info(f"Waiting for {sleep_time:.2f} seconds for GitHub API rate limit reset.")
+            time.sleep(sleep_time)
+            logger.info("Resuming after rate limit reset.")
+        else:
+            logger.info("Rate limit already reset or time is in the past.")
 
 
 # Singleton 인스턴스

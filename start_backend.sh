@@ -7,7 +7,7 @@ echo "🚀 AI Orchestra Dashboard Backend Startup"
 echo "========================================="
 
 # Navigate to backend directory
-cd /Users/m4_macbook/ai-orchestra-dashboard/backend
+cd backend
 
 # Check if virtual environment exists
 if [ ! -d "venv" ]; then
@@ -50,4 +50,4 @@ echo "========================================="
 echo ""
 
 # Run uvicorn with auto-reload for development
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 > backend_stdout.log 2> backend_stderr.log
