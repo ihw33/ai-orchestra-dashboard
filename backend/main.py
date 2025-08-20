@@ -22,6 +22,16 @@ from app.routers import projects_router
 async def lifespan(app: FastAPI):
     """Manage application lifecycle"""
     print("🚀 Starting AI Orchestra Dashboard Backend...")
+    
+    # Validate configuration on startup
+    from app.config import settings
+    try:
+        settings.validate()
+        print(f"✅ Configuration validated: {settings}")
+    except ValueError as e:
+        print(f"❌ Configuration error: {e}")
+        raise
+    
     yield
     print("👋 Shutting down AI Orchestra Dashboard Backend...")
 
