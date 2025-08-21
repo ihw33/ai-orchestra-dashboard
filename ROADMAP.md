@@ -1,176 +1,292 @@
-# 🗺️ AI Orchestra Dashboard 로드맵
+# 🎯 AI Orchestra Platform Roadmap
 
-## 🎯 프로젝트 비전
-여러 AI CLI 도구들을 하나의 통합 팀으로 운영하며, GitHub Issues를 통해 실시간으로 작업을 할당하고 추적하는 지능형 협업 시스템
+> From Tool to Framework to Platform to Ecosystem
 
-## 🏁 Round 0: Setup & Communication ✅
-**목표**: 기본 인프라 구축 및 팀 통신 체계 확립
-**상태**: 완료
+## 📊 Overview
 
-### 완료된 작업
-- [x] 프로젝트 구조 설정
-- [x] GitHub Repository 생성 (ihw33/ai-orchestra-dashboard)
-- [x] 팀원 구성 (Claude, Gemini, Codex, Cursor)
-- [x] AppleScript 통신 시스템 구현
-- [x] GitHub Issues 기반 작업 할당 시스템
-- [x] 팀원 가이드 문서 작성 (PM_GUIDE.md, TEAM_MEMBER_GUIDE.md)
-- [x] Issue 보고 규칙 수립 (ISSUE_REPORTING_RULES.md)
-- [x] Gemini Shell/AI 모드 전환 해결
-- [x] Cursor 통합 (Cmd+K AI Chat)
+AI Orchestra는 단순한 도구에서 시작해 완전한 AI 개발 플랫폼으로 진화합니다.
 
-## 🏁 Round 1: Foundation Layer 🚧
-**목표**: 멀티 프로젝트 대시보드 기본 구현
-**현재 진행 중** (Issue #8)
+```
+Current: Round 3 ✅
+Target: Round 10 🎯
+Timeline: 3 months
+```
 
-### 진행 상황
-- [x] Frontend 기본 구조 (Next.js + TypeScript + Tailwind)
-- [x] Backend API 서버 (FastAPI)
-- [x] 멀티 프로젝트 UI 컴포넌트 (85% 완료)
-  - [x] ProjectSelector 컴포넌트
-  - [x] ProjectCard 컴포넌트
-  - [x] UnifiedMetrics 컴포넌트
-- [ ] GitHub API 연동
-- [ ] 실시간 데이터 동기화
+## 🔄 Evolution Path
 
-### 팀원별 작업
-- **Codex**: Backend API 엔드포인트 (#4)
-- **Gemini**: GitHub 데이터 수집 시스템 (#5)
-- **VSCode Claude**: Frontend UI 구현 (#6)
-- **Cursor ChatGPT**: UX/UI 디자인 (#7)
-
-## 🏁 Round 2: Real-time Integration 📋
-**목표**: 실시간 모니터링 및 통신 시스템
-
-### 계획된 작업
-- [ ] WebSocket 실시간 통신
-- [ ] GitHub Webhooks 통합
-- [ ] 실시간 Issue/PR 업데이트
-- [ ] 팀원 상태 실시간 추적
-- [ ] 진행률 자동 계산 및 표시
-- [ ] 알림 시스템 (블로커, 완료, 지연)
-
-## 🏁 Round 3: Intelligence Layer 🤖
-**목표**: 스마트 작업 분배 및 자동화
-
-### 계획된 기능
-- [ ] 작업 자동 분배 알고리즘
-  - [ ] 팀원별 전문성 매핑
-  - [ ] 작업 복잡도 분석
-  - [ ] 최적 할당 제안
-- [ ] 진행 예측 시스템
-  - [ ] 완료 시간 예측
-  - [ ] 병목 현상 감지
-  - [ ] 리소스 재분배
-- [ ] 자동 보고서 생성
-
-## 🏁 Round 4: Collaboration Enhancement 🔮
-**목표**: AI 팀원 간 협업 강화
-
-### 계획된 기능
-- [ ] AI 간 직접 통신 채널
-- [ ] 지식 공유 시스템
-- [ ] 페어 프로그래밍 모드
-- [ ] 코드 리뷰 자동화
-- [ ] 충돌 해결 시스템
-
-## 🏁 Round 5: Scale & Extend 🚀
-**목표**: 확장성 및 새로운 AI 통합
-
-### 계획된 작업
-- [ ] 새로운 AI 도구 통합
-  - [ ] Mistral
-  - [ ] Llama
-  - [ ] Custom AI agents
-- [ ] 플러그인 시스템
-- [ ] 멀티 프로젝트 오케스트레이션
-- [ ] 크로스 프로젝트 의존성 관리
-
-## 🏁 Round 6: Production Ready 🎯
-**목표**: 프로덕션 배포 및 최적화
-
-### 계획된 작업
-- [ ] 성능 최적화
-- [ ] 보안 강화
-- [ ] CI/CD 파이프라인
-- [ ] 모니터링 및 로깅
-- [ ] 문서화 완성
-
-## 🏁 Round 7: Open Source Launch 🌟
-**목표**: 오픈소스 커뮤니티 런칭
-
-### 계획된 작업
-- [ ] GitHub 공개 저장소 전환
-- [ ] 컨트리뷰션 가이드
-- [ ] 데모 사이트
-- [ ] 도커 이미지
-- [ ] 원클릭 배포 템플릿
-
-## 🎯 무한 라운드 (∞)
-
-### 🌟 AI Orchestra Platform
-- **목표**: 오픈소스 AI 협업 플랫폼으로 발전
-- **기능**:
-  - 마켓플레이스 (AI 에이전트, 워크플로우 템플릿)
-  - 커뮤니티 기여 시스템
-  - 엔터프라이즈 버전
-
-### 🤖 자율 운영 시스템
-- **목표**: 최소한의 인간 개입으로 프로젝트 수행
-- **기능**:
-  - 자동 요구사항 분석
-  - 자동 아키텍처 설계
-  - 자동 코드 생성 및 배포
-  - 자가 학습 및 개선
-
-## 📊 성공 지표 (KPIs)
-
-### 단기 (1개월)
-- [ ] 5개 이상의 동시 작업 관리
-- [ ] 평균 응답 시간 < 5분
-- [ ] 작업 완료율 > 80%
-
-### 중기 (3개월)
-- [ ] 10개 이상의 AI 도구 통합
-- [ ] 100개 이상의 자동화된 워크플로우
-- [ ] 사용자 만족도 > 4.5/5
-
-### 장기 (6개월)
-- [ ] 1000+ GitHub Stars
-- [ ] 50+ 활성 기여자
-- [ ] 10+ 기업 도입 사례
-
-## 🔄 현재 상태 (2025-08-19)
-
-### ✅ 완료
-- 기본 인프라 및 통신 시스템
-- 팀원 온보딩 및 가이드
-- Frontend/Backend 기본 구조
-
-### 🚧 진행 중
-- 멀티 프로젝트 대시보드 UI (85%)
-- GitHub API 통합
-- 실시간 데이터 동기화
-
-### 📋 다음 우선순위
-1. WebSocket 실시간 통신 구현
-2. GitHub Issues 자동 동기화
-3. 팀원 상태 실시간 모니터링
-4. 작업 진행률 시각화
-
-## 🚦 리스크 및 대응
-
-### 기술적 리스크
-- **API Rate Limiting**: 캐싱 및 배치 처리로 대응
-- **실시간 동기화 지연**: WebSocket 최적화 및 폴링 백업
-- **AI 도구 호환성**: 어댑터 패턴으로 추상화
-
-### 운영적 리스크
-- **팀원 응답 지연**: 타임아웃 및 재할당 시스템
-- **작업 병목**: 자동 부하 분산 알고리즘
-- **데이터 일관성**: 트랜잭션 및 이벤트 소싱
+```
+Tool (R1-3) → Framework (R4-7) → Platform (R8-9) → Ecosystem (R10+)
+```
 
 ---
 
-**최종 업데이트**: 2025-08-19
-**작성자**: PM Claude
-**승인자**: Thomas
+## ✅ Completed Rounds (1-3)
+
+### Round 1: Foundation Layer ✅
+- 기본 구조 설정
+- GitHub 통합
+- 팀 구성
+
+### Round 2: GitHub Integration ✅
+- API 연동
+- 인증 시스템
+- Rate Limit 처리
+
+### Round 3: Automation System ✅
+- 라벨→세션 자동화
+- iTerm2 API 분석
+- 세션 ID 표준화
+- PR #55, #56 완료
+
+---
+
+## 🚀 Upcoming Rounds (4-10)
+
+### Round 4: Auto-Onboarding System
+**Timeline**: Week 1 (2025-01)
+**Goal**: 5분 안에 프로젝트 시작
+
+#### Key Features
+- 🎯 대화형 프로젝트 설정
+- 🤖 AI 팀 자동 구성
+- 🖥️ iTerm2 세션 자동 설정
+- 📦 GitHub 레포 생성
+
+#### Deliverables
+- `setup-wizard.py` - 프로젝트 마법사
+- `team-builder.py` - AI 팀 구성기
+- `auto-config.sh` - 자동 설정 스크립트
+
+#### Success Metrics
+- Setup time: 30min → 5min
+- Manual steps: 20 → 1
+- Success rate: > 95%
+
+---
+
+### Round 5: iTerm2 Native Integration
+**Timeline**: Week 2-3 (2025-01)
+**Goal**: iTerm2를 Orchestra 전용 클라이언트로
+
+#### Key Features
+- 📊 네이티브 모니터링 대시보드
+- 💬 AI 팀 채팅 시스템
+- 🎨 커스텀 UI 컴포넌트
+- 🔌 백엔드 직접 통합
+
+#### Deliverables
+- iTerm2 Orchestra Edition v1.0
+- Python API Extensions
+- Native Dashboard UI
+
+#### Technical Stack
+- iTerm2 Python API
+- SwiftUI (for native components)
+- WebSocket (real-time updates)
+
+---
+
+### Round 6: Terminal OS
+**Timeline**: Week 4-5 (2025-01/02)
+**Goal**: 완전 통합 터미널 운영체제
+
+#### Key Features
+- 🔐 Orchestra 로그인 시스템
+- 📁 통합 프로젝트 관리
+- 🖼️ 터미널 내 GUI
+- 🎤 음성 명령 지원
+
+#### Deliverables
+- Orchestra OS Core
+- Authentication System
+- Project Manager
+- Voice Interface
+
+#### Innovation Points
+- Terminal as Platform
+- Zero-config setup
+- AI-first interface
+
+---
+
+### Round 7: Framework APIs
+**Timeline**: Week 6 (2025-02)
+**Goal**: 확장 가능한 프레임워크
+
+#### Key Features
+- 🔌 Plugin 시스템
+- 🤖 Custom AI 등록
+- 📋 Workflow 템플릿
+- 🛠️ Developer SDK
+
+#### Deliverables
+- `orchestra-sdk` npm package
+- API Documentation
+- Plugin Marketplace (beta)
+
+#### Developer Experience
+- Simple API
+- TypeScript support
+- Rich documentation
+
+---
+
+### Round 8: Platform Services
+**Timeline**: Week 7-8 (2025-02)
+**Goal**: 클라우드 플랫폼 전환
+
+#### Key Features
+- ☁️ Orchestra Cloud
+- 👥 실시간 팀 협업
+- 💾 중앙 저장소
+- 🌐 웹 대시보드
+
+#### Deliverables
+- orchestra.ai (web platform)
+- Cloud Infrastructure
+- Collaboration Tools
+
+#### Infrastructure
+- AWS/GCP deployment
+- Kubernetes orchestration
+- Global CDN
+
+---
+
+### Round 9: Marketplace & Ecosystem
+**Timeline**: Week 9-10 (2025-02/03)
+**Goal**: 생태계 구축
+
+#### Key Features
+- 🛍️ AI 마켓플레이스
+- 📚 워크플로우 라이브러리
+- 🎨 템플릿 스토어
+- 👥 커뮤니티 허브
+
+#### Deliverables
+- Orchestra Store
+- Community Portal
+- Revenue Sharing System
+
+#### Business Model
+- Free tier
+- Pro subscription ($99/month)
+- Enterprise licensing
+
+---
+
+### Round 10: Enterprise Edition
+**Timeline**: Week 11-12 (2025-03)
+**Goal**: 기업용 솔루션
+
+#### Key Features
+- 🏢 Private Cloud 지원
+- 🔒 엔터프라이즈 보안
+- 📊 컴플라이언스 지원
+- 🚨 24/7 지원
+
+#### Deliverables
+- Orchestra Enterprise
+- SLA guarantees
+- Professional Services
+
+#### Target Market
+- Fortune 500
+- Tech startups
+- Development agencies
+
+---
+
+## 🎯 Key Milestones
+
+| Date | Milestone | Impact |
+|------|-----------|--------|
+| 2025-01 W1 | Round 4 Complete | Auto-setup ready |
+| 2025-01 W3 | Round 5 Complete | Native client launched |
+| 2025-02 W1 | Round 6 Complete | Terminal OS ready |
+| 2025-02 W2 | Round 7 Complete | SDK released |
+| 2025-02 W4 | Round 8 Complete | Cloud platform live |
+| 2025-03 W2 | Round 9 Complete | Marketplace open |
+| 2025-03 W4 | Round 10 Complete | Enterprise ready |
+
+## 📈 Success Metrics
+
+### Technical Metrics
+- **Setup Time**: 30min → 5min → 1min
+- **Automation Rate**: 30% → 95% → 99%
+- **Reliability**: 50% → 95% → 99.9%
+
+### Business Metrics
+- **Users**: 10 → 1,000 → 10,000
+- **Projects**: 1 → 100 → 1,000
+- **Revenue**: $0 → $10K → $100K MRR
+
+### Ecosystem Metrics
+- **Plugins**: 0 → 50 → 500
+- **Templates**: 0 → 100 → 1,000
+- **Contributors**: 1 → 10 → 100
+
+## 🚀 Next Steps
+
+### Immediate Actions (This Week)
+1. ✅ Create Round 4 detailed issues (#57)
+2. ⏳ Assign AI team members
+3. ⏳ Start auto-onboarding development
+
+### Short Term (Next Month)
+1. Launch iTerm2 Orchestra Edition
+2. Beta test Terminal OS
+3. Release SDK v1.0
+
+### Long Term (Next Quarter)
+1. Launch Orchestra Cloud
+2. Open Marketplace
+3. Enterprise partnerships
+
+## 🏗️ Technical Architecture
+
+### Current Stack
+- **Frontend**: Next.js, TypeScript, Tailwind CSS
+- **Backend**: FastAPI, Python
+- **Integration**: iTerm2 Python API, AppleScript
+- **Version Control**: GitHub
+- **AI Tools**: Claude, Gemini, Codex, Cursor
+
+### Future Stack
+- **Platform**: Kubernetes, Docker
+- **Database**: PostgreSQL, Redis
+- **Real-time**: WebSocket, gRPC
+- **Auth**: OAuth2, SAML
+- **Monitoring**: Prometheus, Grafana
+
+## 🤝 How to Contribute
+
+### For Developers
+- Check open issues labeled `help-wanted`
+- Submit PRs for bug fixes
+- Create plugins and templates
+
+### For Users
+- Report bugs and feature requests
+- Share workflows and templates
+- Join community discussions
+
+### For Partners
+- Integration opportunities
+- Enterprise pilots
+- Co-development projects
+
+## 📞 Contact
+
+- **Project Lead**: Thomas (@ihw33)
+- **PM**: Claude (AI Orchestra)
+- **Repository**: [github.com/ihw33/ai-orchestra-dashboard](https://github.com/ihw33/ai-orchestra-dashboard)
+- **Discord**: Coming soon
+- **Email**: orchestra@ai.dev (Coming soon)
+
+---
+
+*Last Updated: 2025-01-21*
+*Version: 2.0.0*
+
+> "From a tool to a platform to an ecosystem - AI Orchestra is revolutionizing how we build software with AI teams."
