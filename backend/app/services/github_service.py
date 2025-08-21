@@ -1,197 +1,196 @@
 """
-GitHub API Service
-Handles all interactions with GitHub API
+GitHub Service Module
+Issue #26: API 클라이언트 인증 구현
 """
 
+from typing import Optional, Dict, Any
 from github import Github, GithubException
-from typing import List, Dict, Optional
-import os
-from dotenv import load_dotenv
-import json
+from app.config import settings
+import logging
+import time
+from datetime import datetime, timezone
 
-load_dotenv()
+logger = logging.getLogger(__name__)
+
 
 class GitHubService:
+    """GitHub API 서비스 클래스"""
+    
     def __init__(self):
-        self.token = os.getenv("GITHUB_TOKEN")
-        if not self.token:
-            raise ValueError("GITHUB_TOKEN not found in environment variables")
-        self.client = Github(self.token)
-        
-    def get_user_info(self) -> Dict:
-        """Get authenticated user information"""
-        user = self.client.get_user()
-        return {
-            "login": user.login,
-            "name": user.name,
-            "email": user.email,
-            "avatar_url": user.avatar_url
-        }
+        """초기화 - 토큰은 settings에서 가져옴"""
+        self.token = settings.github_token
+        self.client: Optional[Github] = None
+        self.authenticated = False
+        self.user_info: Optional[Dict[str, Any]] = None
     
-    def get_repository(self, repo_name: str):
-        """Get repository object"""
+    def authenticate(self) -> Dict[str, Any]:
+        """
+        GitHub 인증 수행
+        
+        Returns:
+            Dict containing:
+                - success (bool): 인증 성공 여부
+                - message (str): 결과 메시지
+                - user (dict|None): 인증된 사용자 정보
+                - error (str|None): 에러 메시지
+        """
         try:
-            return self.client.get_repo(repo_name)
+            # 토큰이 없는 경우
+            if not self.token:
+                logger.warning("GitHub token not configured")
+                return {
+                    "success": False,
+                    "message": "GitHub token not configured",
+                    "user": None,
+                    "error": "MISSING_TOKEN"
+                }
+            
+            # PyGithub 클라이언트 생성
+            self.client = Github(self.token)
+            
+            # 인증 테스트 - 현재 사용자 정보 가져오기
+            user = self.client.get_user()
+            
+            # 사용자 정보 저장
+            self.user_info = {
+                "login": user.login,
+                "name": user.name,
+                "email": user.email,
+                "bio": user.bio,
+                "public_repos": user.public_repos,
+                "followers": user.followers,
+                "following": user.following,
+                "created_at": user.created_at.isoformat() if user.created_at else None,
+            }
+            
+            self.authenticated = True
+            logger.info(f"Successfully authenticated as {user.login}")
+            
+            return {
+                "success": True,
+                "message": f"Successfully authenticated as {user.login}",
+                "user": self.user_info,
+                "error": None
+            }
+            
         except GithubException as e:
-            raise Exception(f"Repository not found: {repo_name}")
+            # GitHub API 에러 처리
+            error_message = f"GitHub API error: {e.data.get('message', str(e))}"
+            logger.error(error_message)
+            
+            # 401 Unauthorized - 토큰이 유효하지 않음
+            if e.status == 401:
+                return {
+                    "success": False,
+                    "message": "Invalid GitHub token",
+                    "user": None,
+                    "error": "INVALID_TOKEN"
+                }
+            
+            # 403 Forbidden - Rate limit 또는 권한 부족
+            elif e.status == 403:
+                return {
+                    "success": False,
+                    "message": "Access forbidden - check rate limits or token permissions",
+                    "user": None,
+                    "error": "FORBIDDEN"
+                }
+            
+            # 기타 GitHub API 에러
+            return {
+                "success": False,
+                "message": error_message,
+                "user": None,
+                "error": f"GITHUB_ERROR_{e.status}"
+            }
+            
+        except Exception as e:
+            # 예상치 못한 에러
+            error_message = f"Unexpected error during authentication: {str(e)}"
+            logger.error(error_message)
+            
+            return {
+                "success": False,
+                "message": error_message,
+                "user": None,
+                "error": "UNEXPECTED_ERROR"
+            }
     
-    def list_issues(self, repo_name: str, state: str = "open") -> List[Dict]:
-        """List issues for a repository"""
-        repo = self.get_repository(repo_name)
-        issues = repo.get_issues(state=state)
-        
-        return [{
-            "number": issue.number,
-            "title": issue.title,
-            "body": issue.body,
-            "state": issue.state,
-            "labels": [label.name for label in issue.labels],
-            "assignees": [assignee.login for assignee in issue.assignees],
-            "created_at": issue.created_at.isoformat(),
-            "updated_at": issue.updated_at.isoformat(),
-            "comments": issue.comments,
-            "html_url": issue.html_url
-        } for issue in issues]
+    def is_authenticated(self) -> bool:
+        """인증 상태 확인"""
+        return self.authenticated
     
-    def create_issue(self, repo_name: str, title: str, body: str, labels: List[str] = None) -> Dict:
-        """Create a new issue"""
-        repo = self.get_repository(repo_name)
-        issue = repo.create_issue(
-            title=title,
-            body=body,
-            labels=labels or []
-        )
-        
-        return {
-            "number": issue.number,
-            "title": issue.title,
-            "html_url": issue.html_url,
-            "created": True
-        }
+    def get_client(self) -> Optional[Github]:
+        """GitHub 클라이언트 반환"""
+        if not self.authenticated:
+            self.authenticate()
+        return self.client
     
-    def comment_on_issue(self, repo_name: str, issue_number: int, comment: str) -> Dict:
-        """Add a comment to an issue"""
-        repo = self.get_repository(repo_name)
-        issue = repo.get_issue(issue_number)
-        comment = issue.create_comment(comment)
+    def get_rate_limit(self) -> Dict[str, Any]:
+        """
+        API Rate Limit 정보 조회
         
-        return {
-            "id": comment.id,
-            "body": comment.body,
-            "created_at": comment.created_at.isoformat()
-        }
-    
-    def list_pull_requests(self, repo_name: str, state: str = "open") -> List[Dict]:
-        """List pull requests for a repository"""
-        repo = self.get_repository(repo_name)
-        pulls = repo.get_pulls(state=state)
+        Returns:
+            Rate limit 정보 딕셔너리
+        """
+        if not self.client:
+            return {"error": "Not authenticated"}
         
-        return [{
-            "number": pr.number,
-            "title": pr.title,
-            "body": pr.body,
-            "state": pr.state,
-            "head": pr.head.ref,
-            "base": pr.base.ref,
-            "created_at": pr.created_at.isoformat(),
-            "updated_at": pr.updated_at.isoformat(),
-            "html_url": pr.html_url,
-            "mergeable": pr.mergeable,
-            "merged": pr.merged
-        } for pr in pulls]
-    
-    def create_pull_request(self, repo_name: str, title: str, body: str, head: str, base: str = "main") -> Dict:
-        """Create a new pull request"""
-        repo = self.get_repository(repo_name)
-        pr = repo.create_pull(
-            title=title,
-            body=body,
-            head=head,
-            base=base
-        )
-        
-        return {
-            "number": pr.number,
-            "title": pr.title,
-            "html_url": pr.html_url,
-            "created": True
-        }
-    
-    def get_workflow_runs(self, repo_name: str, limit: int = 10) -> List[Dict]:
-        """Get recent workflow runs"""
-        repo = self.get_repository(repo_name)
-        workflows = repo.get_workflow_runs()
-        
-        runs = []
-        for i, run in enumerate(workflows):
-            if i >= limit:
-                break
-            runs.append({
-                "id": run.id,
-                "name": run.name,
-                "status": run.status,
-                "conclusion": run.conclusion,
-                "created_at": run.created_at.isoformat(),
-                "html_url": run.html_url
-            })
-        
-        return runs
-    
-    def get_milestones(self, repo_name: str, state: str = "open") -> List[Dict]:
-        """Get milestones for a repository"""
-        repo = self.get_repository(repo_name)
-        milestones = repo.get_milestones(state=state)
-        
-        return [{
-            "number": milestone.number,
-            "title": milestone.title,
-            "description": milestone.description,
-            "state": milestone.state,
-            "open_issues": milestone.open_issues,
-            "closed_issues": milestone.closed_issues,
-            "due_on": milestone.due_on.isoformat() if milestone.due_on else None,
-            "created_at": milestone.created_at.isoformat(),
-            "updated_at": milestone.updated_at.isoformat()
-        } for milestone in milestones]
-    
-    def create_milestone(self, repo_name: str, title: str, description: str = None, due_on: str = None) -> Dict:
-        """Create a new milestone"""
-        repo = self.get_repository(repo_name)
-        milestone = repo.create_milestone(
-            title=title,
-            description=description,
-            due_on=due_on
-        )
-        
-        return {
-            "number": milestone.number,
-            "title": milestone.title,
-            "created": True
-        }
-    
-    def assign_issue(self, repo_name: str, issue_number: int, assignees: List[str]) -> Dict:
-        """Assign users to an issue"""
-        repo = self.get_repository(repo_name)
-        issue = repo.get_issue(issue_number)
-        issue.add_to_assignees(*assignees)
-        
-        return {
-            "issue_number": issue_number,
-            "assignees": assignees,
-            "assigned": True
-        }
-    
-    def add_labels_to_issue(self, repo_name: str, issue_number: int, labels: List[str]) -> Dict:
-        """Add labels to an issue"""
-        repo = self.get_repository(repo_name)
-        issue = repo.get_issue(issue_number)
-        issue.add_to_labels(*labels)
-        
-        return {
-            "issue_number": issue_number,
-            "labels": labels,
-            "added": True
-        }
+        try:
+            rate_limit = self.client.get_rate_limit()
+            core = rate_limit.core
+            
+            return {
+                "limit": core.limit,
+                "remaining": core.remaining,
+                "reset": core.reset.isoformat(),
+                "used": core.limit - core.remaining
+            }
+        except Exception as e:
+            logger.error(f"Error getting rate limit: {e}")
+            return {"error": str(e)}
 
-# Singleton instance
+    def check_rate_limit(self):
+        """
+        Checks the GitHub API rate limit and waits if necessary.
+        """
+        if not self.client:
+            logger.warning("GitHub client not authenticated, cannot check rate limit.")
+            return
+
+        try:
+            rate_limit = self.client.get_rate_limit()
+            core = rate_limit.core
+
+            remaining = core.remaining
+            reset_timestamp = core.reset.timestamp() # Get Unix timestamp
+
+            logger.info(f"GitHub API Rate Limit: Remaining={remaining}, Reset at={datetime.fromtimestamp(reset_timestamp, tz=timezone.utc)}")
+
+            # If remaining calls are low (e.g., less than 10% of limit)
+            # Or if remaining is very low (e.g., < 10 calls)
+            if remaining < 50 or (remaining / core.limit < 0.1 and remaining < 100): # Thresholds can be adjusted
+                logger.warning(f"GitHub API rate limit is low. Remaining: {remaining}. Waiting until reset.")
+                self.wait_for_rate_limit(reset_timestamp)
+        except GithubException as e:
+            logger.error(f"Error checking GitHub rate limit: {e}")
+        except Exception as e:
+            logger.error(f"Unexpected error during rate limit check: {e}")
+
+    def wait_for_rate_limit(self, reset_timestamp: float):
+        """
+        Pauses execution until the GitHub API rate limit resets.
+        """
+        current_time = time.time()
+        sleep_time = reset_timestamp - current_time + 5 # Add a small buffer
+
+        if sleep_time > 0:
+            logger.info(f"Waiting for {sleep_time:.2f} seconds for GitHub API rate limit reset.")
+            time.sleep(sleep_time)
+            logger.info("Resuming after rate limit reset.")
+        else:
+            logger.info("Rate limit already reset or time is in the past.")
+
+
+# Singleton 인스턴스
 github_service = GitHubService()
