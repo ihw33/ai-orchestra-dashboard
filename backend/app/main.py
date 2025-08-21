@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 라우터 임포트
-from app.routers import pm_router
+from app.routers import pm_router, chat_bridge
 
 # FastAPI 앱 생성
 app = FastAPI(
@@ -40,6 +40,7 @@ app.add_middleware(
 
 # 라우터 등록
 app.include_router(pm_router.router)
+app.include_router(chat_bridge.router)
 
 # WebSocket 연결 관리
 class ConnectionManager:
@@ -74,6 +75,7 @@ async def root():
             "docs": "/docs",
             "redoc": "/redoc",
             "pm_api": "/api/pm",
+            "chat_bridge": "/api/chat-bridge",
             "websocket": "/ws"
         }
     }
