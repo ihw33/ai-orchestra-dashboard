@@ -1,0 +1,167 @@
+site_name: AI Orchestra Dashboard Documentation
+site_description: Comprehensive documentation for the AI Orchestra Dashboard - A system for managing AI team collaboration through GitHub Issues
+site_author: AI Orchestra Team
+site_url: https://ihw33.github.io/ai-orchestra-dashboard
+
+# Repository
+repo_name: ihw33/ai-orchestra-dashboard
+repo_url: https://github.com/ihw33/ai-orchestra-dashboard
+edit_uri: edit/main/docs/
+
+# Configuration
+theme:
+  name: material
+  language: en
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - def_list
+  - tables
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+
+# Plugins
+plugins:
+  - search:
+      lang: en
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: datetime
+
+# Navigation
+nav:
+  - Home: 
+    - Documentation Hub: docs/README.md
+    - Project README: README.md
+    
+  - Getting Started:
+    - Quick Start: docs/getting-started.md
+    - Setup Guide: SETUP_GUIDE.md
+    - CLI Bridge Setup: CLI_BRIDGE_GUIDE.md
+    - CLI Connection: CLI_CONNECTION_GUIDE.md
+    
+  - Project Management:
+    - PM Guide: docs/PM_Guide.md
+    - PM Control: PM_CONTROL_GUIDE.md
+    - PM Claude Integration: PM_CLAUDE_INTEGRATION_GUIDE.md
+    - PM Checklist: PM_CHECKLIST.md
+    - GitHub Projects Setup: GITHUB_PROJECTS_SETUP.md
+    - Milestone Planning: MILESTONE_PLAN.md
+    - Decision Log: DECISION_LOG.md
+    
+  - AI Team Operations:
+    - Team Guide: docs/Team_Guide.md
+    - Team Member Guide: TEAM_MEMBER_GUIDE.md
+    - AI Collaboration Process: AI_COLLABORATION_PROCESS.md
+    - Issue Reporting Rules: ISSUE_REPORTING_RULES.md
+    - AI Team Manual: docs/AI_TEAM_MANUAL.md
+    
+  - Technical Documentation:
+    - Technical Architecture: docs/TECHNICAL_ARCHITECTURE.md
+    - Code Review Process: docs/CODE_REVIEW_PROCESS.md
+    - Monitoring Guide: MONITORING_GUIDE.md
+    - Automation Guide: docs/AUTOMATION_GUIDE.md
+    
+  - Workflows & Processes:
+    - Complete Workflow: docs/COMPLETE_WORKFLOW.md
+    - Allow Request System: docs/ALLOW_REQUEST_SYSTEM.md
+    - Team Tab Mapping: docs/TEAM_TAB_MAPPING.md
+    - Daily Checklist: docs/DAILY_CHECKLIST.md
+    
+  - Project Status:
+    - Current Status: docs/PROJECT_STATUS.md
+    - Team Status: docs/TEAM_STATUS.md
+    - Issue List: ISSUE_LIST.md
+    - Roadmap: docs/Roadmap.md
+    - Round Planning: ROUND_PLANNING.md
+    
+  - Planning & Strategy:
+    - Multi-Project Dashboard: docs/MULTI_PROJECT_DASHBOARD_PLAN.md
+    - Implementation Priorities: docs/IMPLEMENTATION_PRIORITY_LIST.md
+    - AI Orchestra Flow: docs/AI_Orchestra_Flow.md
+    - AI Orchestra Action Items: docs/AI_Orchestra_Action_Items.md
+    
+  - Insights & Learning:
+    - ChatGPT Discussion Insights: docs/ChatGPT_Discussion_Key_Insights.md
+    - AI Orchestra QnA: docs/AI_Orchestra_QnA_Full.md
+    - Round 1 Retrospective: ROUND1_RETROSPECTIVE.md
+    - Rounds Archive: docs/rounds/
+    
+  - Completed Tasks:
+    - Issue 12 Completed: ISSUE_12_DONE.md
+    - Issue 13 Completed: ISSUE_13_DONE.md
+    - Issue 14 Completed: ISSUE_14_DONE.md
+    - Issue 15 Completed: ISSUE_15_DONE.md
+
+# Additional configuration
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ihw33/ai-orchestra-dashboard
+      name: AI Orchestra Dashboard on GitHub
+  
+  version:
+    provider: mike
+    default: latest
+
+# Copyright
+copyright: Copyright &copy; 2025 AI Orchestra Team
+
+# Custom CSS
+extra_css:
+  - stylesheets/extra.css
+
+# Search
+search:
+  - lang: en

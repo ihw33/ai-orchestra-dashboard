@@ -1,0 +1,273 @@
+AI Orchestra Dashboard - Product Requirements Document (PRD)
+
+PROJECT OVERVIEW
+================
+The AI Orchestra Dashboard is a comprehensive management system designed to coordinate multiple AI CLI tools as a unified team. The system enables real-time collaboration, task assignment, and progress tracking through GitHub Issues integration and automated communication protocols.
+
+CORE OBJECTIVES
+===============
+1. Orchestrate 4+ AI team members (Claude, Gemini, Codex, Cursor) as a cohesive unit
+2. Automate task distribution and progress tracking via GitHub Issues
+3. Provide real-time monitoring dashboard for all AI activities
+4. Enable seamless communication between AI agents using AppleScript automation
+5. Implement intelligent workflow management for complex multi-stage projects
+
+TARGET USERS
+============
+- Project Managers (PM Claude) coordinating AI teams
+- AI Team Members receiving and executing tasks
+- Human stakeholders monitoring progress
+- Development teams integrating AI collaboration workflows
+
+TECHNICAL ARCHITECTURE
+======================
+
+Frontend (Next.js + TypeScript + Tailwind)
+- Real-time dashboard displaying team status
+- Task assignment interface
+- Progress visualization
+- WebSocket integration for live updates
+- Multi-language support (Korean/English)
+
+Backend (FastAPI + Python)
+- GitHub API integration for Issues/PRs management
+- WebSocket server for real-time communication
+- Task orchestration engine
+- Progress tracking and analytics
+- AppleScript automation endpoints
+
+AI Team Communication Layer
+- iTerm2 session management and automation
+- AppleScript-based message delivery system
+- Mode detection (Shell vs AI mode for Gemini)
+- Cursor app integration via keyboard shortcuts
+- Automated confirmation and status reporting
+
+CORE FEATURES
+=============
+
+1. TASK ORCHESTRATION
+   - GitHub Issue creation with AI-specific templates
+   - Automated task assignment based on AI specializations
+   - Dependency management between tasks
+   - Priority-based scheduling
+   - Parallel execution coordination
+
+2. REAL-TIME MONITORING
+   - Live dashboard showing all AI team member status
+   - Progress bars and completion percentages
+   - Blocker detection and escalation
+   - Performance metrics and analytics
+   - Session health monitoring
+
+3. COMMUNICATION AUTOMATION
+   - AppleScript-driven message delivery to iTerm sessions
+   - Cursor integration via Cmd+K automation
+   - Gemini mode switching (Shell ↔ AI)
+   - Standardized reporting protocols
+   - Automated confirmations and acknowledgments
+
+4. GITHUB INTEGRATION
+   - Issue-based task management
+   - Pull request automation
+   - Comment-based status updates
+   - Milestone tracking
+   - Branch management
+
+5. INTELLIGENT WORKFLOW MANAGEMENT
+   - Multi-stage project coordination
+   - Automatic task breakdown and distribution
+   - Context sharing between AI agents
+   - Decision point management
+   - Quality assurance checkpoints
+
+TEAM MEMBER SPECIFICATIONS
+==========================
+
+PM Claude (Terminal)
+- Role: Project manager and orchestrator
+- Responsibilities: Task creation, assignment, monitoring, GitHub operations
+- Tools: GitHub CLI, terminal commands, orchestration scripts
+- Communication: Direct terminal access
+
+Claude (iTerm Session 1)
+- Role: Code review and documentation specialist
+- Mode: AI mode permanently
+- Specialization: Code quality, documentation, best practices
+- Communication: AppleScript → iTerm session messaging
+
+Gemini (iTerm Session 2)
+- Role: Data collection and analysis specialist
+- Mode: Toggleable Shell ($) ↔ AI (>) modes
+- Specialization: Research, data processing, analytical tasks
+- Special handling: Mode detection and switching automation
+
+Codex (iTerm Session 4)
+- Role: Code generation and automation specialist
+- Mode: AI mode permanently
+- Specialization: Code implementation, automation scripts
+- Communication: AppleScript → iTerm session messaging
+
+Cursor
+- Role: VS Code-based AI editor
+- Access: Cmd+K keyboard shortcut for AI chat
+- Specialization: Interactive development, UI implementation
+- Integration: AppleScript automation for message delivery
+
+WORKFLOW SPECIFICATIONS
+=======================
+
+1. TASK ASSIGNMENT PROCESS
+   a) PM creates GitHub Issue with detailed requirements
+   b) System analyzes task and determines optimal AI assignee
+   c) AppleScript delivers task notification to assigned AI
+   d) AI confirms receipt and provides initial assessment
+   e) Task begins with automatic progress tracking
+
+2. PROGRESS MONITORING
+   a) 5-minute intervals: File system monitoring for changes
+   b) 30-minute intervals: Required progress reports from AI agents
+   c) Real-time: GitHub Issue comment monitoring
+   d) Continuous: Session health and mode detection
+
+3. COMMUNICATION PROTOCOLS
+   a) Standardized message formats for different AI types
+   b) Confirmation requirements and timeout handling
+   c) Escalation procedures for non-responsive agents
+   d) Error handling and recovery mechanisms
+
+4. QUALITY ASSURANCE
+   a) Peer review assignments for critical tasks
+   b) Automated testing integration
+   c) Documentation requirements
+   d) Final approval workflows
+
+TECHNICAL REQUIREMENTS
+=====================
+
+Infrastructure:
+- Node.js 18+ for frontend
+- Python 3.10+ for backend
+- PostgreSQL for data persistence
+- Redis for session management
+- WebSocket support for real-time updates
+
+Dependencies:
+- GitHub CLI (gh) for repository operations
+- iTerm2 with AppleScript support
+- Cursor IDE with automation capabilities
+- macOS with Accessibility permissions
+
+Security:
+- GitHub token management
+- Secure API key storage
+- Session isolation and sandboxing
+- Audit logging for all operations
+
+Performance:
+- Sub-second response times for UI interactions
+- <5 second task assignment delivery
+- Real-time updates with minimal latency
+- Scalable to 10+ concurrent AI agents
+
+INTEGRATION POINTS
+==================
+
+1. GitHub API Integration
+   - Issues API for task management
+   - Pull Requests API for code review
+   - Comments API for communication
+   - Projects API for milestone tracking
+
+2. AppleScript Automation
+   - iTerm2 session targeting and messaging
+   - Cursor application control
+   - System notification handling
+   - Error detection and recovery
+
+3. File System Monitoring
+   - Real-time change detection
+   - Git integration for version tracking
+   - Automated backup and restore
+   - Conflict resolution
+
+4. External Tools Integration
+   - Docker for containerized services
+   - CI/CD pipeline integration
+   - Code quality tools (ESLint, Prettier)
+   - Testing frameworks (Jest, Pytest)
+
+SUCCESS METRICS
+===============
+
+Primary KPIs:
+- Task completion rate: >90%
+- Average task completion time: <2 hours
+- AI agent response time: <30 seconds
+- System uptime: >99.5%
+
+Quality Metrics:
+- Code review success rate: >95%
+- Documentation coverage: >80%
+- Bug detection rate: <5% post-deployment
+- Stakeholder satisfaction: >4.5/5
+
+Efficiency Metrics:
+- Multi-tasking capability: 3+ parallel tasks
+- Resource utilization: <70% CPU/Memory
+- Communication success rate: >98%
+- Automated task routing accuracy: >95%
+
+RISK MITIGATION
+===============
+
+Technical Risks:
+- AppleScript automation failures → Fallback notification systems
+- AI agent non-responsiveness → Timeout and reassignment protocols
+- GitHub API rate limiting → Request queuing and caching
+- Session management issues → Automatic recovery and restart
+
+Operational Risks:
+- Task complexity overestimation → Dynamic scope adjustment
+- Communication bottlenecks → Parallel communication channels
+- Quality degradation → Enhanced review processes
+- Scalability limitations → Microservices architecture
+
+FUTURE ENHANCEMENTS
+==================
+
+Phase 2 Features:
+- Machine learning for task optimization
+- Advanced analytics and reporting
+- Mobile application for monitoring
+- Integration with additional AI providers
+
+Phase 3 Features:
+- Multi-project support
+- Team collaboration features
+- Advanced workflow automation
+- Enterprise-grade security features
+
+ACCEPTANCE CRITERIA
+==================
+
+The AI Orchestra Dashboard will be considered complete when:
+
+1. All 4 AI team members can receive and execute tasks automatically
+2. Real-time dashboard displays accurate status for all agents
+3. GitHub Issues integration works seamlessly for task management
+4. AppleScript automation delivers messages with >95% success rate
+5. System can handle 5+ concurrent tasks across different AI agents
+6. Comprehensive monitoring and alerting system is operational
+7. Documentation is complete and team members are trained
+
+TIMELINE
+========
+
+Sprint 1 (Week 1-2): Core infrastructure and basic AI communication
+Sprint 2 (Week 3-4): GitHub integration and task orchestration
+Sprint 3 (Week 5-6): Real-time dashboard and monitoring
+Sprint 4 (Week 7-8): Advanced workflows and quality assurance
+Sprint 5 (Week 9-10): Testing, optimization, and documentation
+
+This PRD serves as the foundation for implementing a revolutionary AI team coordination system that maximizes the potential of multiple AI agents working in harmony.

@@ -1,0 +1,90 @@
+{
+  "tabs": {
+    "1": {
+      "name": "\ud83c\udfe0 Home",
+      "sessions": {
+        "1-1": {
+          "id": "HOME_MAIN",
+          "cli": "Terminal",
+          "role": "General"
+        },
+        "1-2": {
+          "id": "HOME_MONITOR",
+          "cli": "Monitor",
+          "role": "Monitoring"
+        }
+      }
+    },
+    "2": {
+      "name": "\ud83e\udd16 AI Engine",
+      "sessions": {
+        "2-1": {
+          "id": "ENGINE_GEMINI",
+          "cli": "Gemini",
+          "role": "Data Processing"
+        },
+        "2-2": {
+          "id": "ENGINE_CODEX",
+          "cli": "Codex",
+          "role": "Backend Dev"
+        },
+        "2-3": {
+          "id": "ENGINE_TERMINAL",
+          "cli": "Terminal",
+          "role": "Testing"
+        }
+      }
+    },
+    "3": {
+      "name": "\ud83d\udcda IWL Project",
+      "sessions": {
+        "3-1": {
+          "id": "IWL_PM",
+          "cli": "PM Claude",
+          "role": "Project Management"
+        },
+        "3-2": {
+          "id": "IWL_CURSOR",
+          "cli": "Cursor",
+          "role": "Frontend Dev"
+        },
+        "3-3": {
+          "id": "IWL_GEMINI",
+          "cli": "Gemini",
+          "role": "Content"
+        },
+        "3-4": {
+          "id": "IWL_CODEX",
+          "cli": "Codex",
+          "role": "API"
+        }
+      }
+    },
+    "4": {
+      "name": "\ud83c\udfbc Orchestra Board",
+      "sessions": {
+        "4-1": {
+          "id": "ORCH_CLAUDE",
+          "cli": "Claude",
+          "role": "Backend"
+        },
+        "4-2": {
+          "id": "ORCH_TERMINAL",
+          "cli": "Terminal",
+          "role": "Testing"
+        },
+        "4-3": {
+          "id": "ORCH_GEMINI",
+          "cli": "Gemini",
+          "role": "Data"
+        },
+        "4-4": {
+          "id": "ORCH_CODEX",
+          "cli": "Codex",
+          "role": "Backend"
+        }
+      }
+    }
+  },
+  "updated": "2025-08-20T23:01:36.554854"
+}

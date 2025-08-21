@@ -1,0 +1,15 @@
+Tab 4 Claude에게:
+
+KPI 시스템 코드 개선 작업을 요청합니다.
+
+작업 지시서: /Users/m4_macbook/Projects/ai-orchestra-dashboard/task_for_tab4_claude.md
+
+위 파일을 읽고 다음 작업을 수행해주세요:
+1. round5/ 디렉토리의 KPI 파일들 리뷰
+2. Codex가 지적한 개선사항 확인
+3. final_kpi_system.py로 개선된 버전 생성
+4. improvements.md에 변경사항 문서화
+
+PR #61에 반영할 예정입니다.
+
+- PM Claude

@@ -1,0 +1,264 @@
+{
+  "project": "AI Orchestra Dashboard",
+  "created": "2025-08-20T00:00:00Z",
+  "tags": [
+    {
+      "name": "setup",
+      "description": "Initial project setup and configuration tasks",
+      "tasks": [
+        {
+          "id": "setup-1",
+          "title": "Initialize Task Master System",
+          "description": "Set up Task Master configuration for AI Orchestra Dashboard with proper templates and workflows",
+          "status": "completed",
+          "priority": "high",
+          "assignee": "PM Claude",
+          "estimated_duration": "1 hour",
+          "completed_at": "2025-08-20T00:00:00Z",
+          "files": [".taskmaster/config/taskmaster.json", ".taskmaster/docs/prd.txt", ".taskmaster/templates/ai_task_template.json"]
+        },
+        {
+          "id": "setup-2", 
+          "title": "Verify AI Team Communication Channels",
+          "description": "Test AppleScript automation for all AI team members (Claude, Gemini, Codex, Cursor) and ensure reliable message delivery",
+          "status": "pending",
+          "priority": "high",
+          "assignee": "PM Claude",
+          "estimated_duration": "30 minutes",
+          "dependencies": ["setup-1"]
+        },
+        {
+          "id": "setup-3",
+          "title": "Configure GitHub Issues Integration",
+          "description": "Set up GitHub Issues templates, labels, and automation for AI task management",
+          "status": "pending", 
+          "priority": "high",
+          "assignee": "PM Claude",
+          "estimated_duration": "45 minutes",
+          "dependencies": ["setup-1"]
+        }
+      ]
+    },
+    {
+      "name": "infrastructure",
+      "description": "Core system infrastructure and backend development",
+      "tasks": [
+        {
+          "id": "infra-1",
+          "title": "Enhance Backend API for Task Orchestration",
+          "description": "Extend FastAPI backend with task management endpoints, AI agent communication, and GitHub integration",
+          "status": "pending",
+          "priority": "high",
+          "assignee": "Codex",
+          "estimated_duration": "3 hours",
+          "specialization": ["api_development", "automation"],
+          "dependencies": ["setup-2", "setup-3"]
+        },
+        {
+          "id": "infra-2",
+          "title": "Implement WebSocket Real-time Communication",
+          "description": "Add WebSocket support for real-time updates between AI agents, dashboard, and GitHub",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "Codex",
+          "estimated_duration": "2 hours",
+          "dependencies": ["infra-1"]
+        },
+        {
+          "id": "infra-3",
+          "title": "Create AppleScript Automation Library",
+          "description": "Develop comprehensive AppleScript library for reliable AI agent communication and session management",
+          "status": "pending",
+          "priority": "high",
+          "assignee": "Gemini",
+          "estimated_duration": "2.5 hours",
+          "specialization": ["shell_scripting", "system_monitoring"],
+          "dependencies": ["setup-2"]
+        }
+      ]
+    },
+    {
+      "name": "frontend",
+      "description": "Dashboard UI and user interface development",
+      "tasks": [
+        {
+          "id": "ui-1",
+          "title": "Design Real-time AI Team Dashboard",
+          "description": "Create comprehensive dashboard showing AI team status, active tasks, progress bars, and system health",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "Cursor",
+          "estimated_duration": "4 hours",
+          "specialization": ["ui_development", "component_creation"],
+          "dependencies": ["infra-2"]
+        },
+        {
+          "id": "ui-2",
+          "title": "Implement Task Assignment Interface",
+          "description": "Build intuitive interface for creating, assigning, and managing tasks across AI team members",
+          "status": "pending",
+          "priority": "medium", 
+          "assignee": "Cursor",
+          "estimated_duration": "3 hours",
+          "dependencies": ["infra-1", "ui-1"]
+        },
+        {
+          "id": "ui-3",
+          "title": "Add Multi-language Support (Korean/English)",
+          "description": "Implement internationalization for the dashboard with Korean and English language support",
+          "status": "pending",
+          "priority": "low",
+          "assignee": "Cursor",
+          "estimated_duration": "2 hours",
+          "dependencies": ["ui-1"]
+        }
+      ]
+    },
+    {
+      "name": "integration",
+      "description": "External system integrations and automation",
+      "tasks": [
+        {
+          "id": "int-1",
+          "title": "GitHub Issues Automation System",
+          "description": "Create automated GitHub Issues creation, assignment, and tracking for AI tasks with custom templates and labels",
+          "status": "pending",
+          "priority": "high",
+          "assignee": "Codex",
+          "estimated_duration": "2.5 hours",
+          "specialization": ["api_development", "automation"],
+          "dependencies": ["setup-3", "infra-1"]
+        },
+        {
+          "id": "int-2",
+          "title": "AI Agent Session Monitoring",
+          "description": "Implement monitoring system for iTerm sessions, mode detection (especially Gemini Shell/AI), and health checks",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "Gemini",
+          "estimated_duration": "2 hours",
+          "specialization": ["system_monitoring", "shell_scripting"],
+          "dependencies": ["infra-3"]
+        },
+        {
+          "id": "int-3",
+          "title": "File System Change Detection",
+          "description": "Create real-time file monitoring system to track AI agent work progress and automatically update task status",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "Gemini",
+          "estimated_duration": "1.5 hours",
+          "dependencies": ["int-2"]
+        }
+      ]
+    },
+    {
+      "name": "quality",
+      "description": "Quality assurance, testing, and documentation",
+      "tasks": [
+        {
+          "id": "qa-1",
+          "title": "Code Review and Quality Standards",
+          "description": "Establish code review processes, quality standards, and automated checks for all AI-generated code",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "Claude",
+          "estimated_duration": "2 hours",
+          "specialization": ["code_review", "best_practices"],
+          "dependencies": ["infra-1", "int-1"]
+        },
+        {
+          "id": "qa-2",
+          "title": "Comprehensive System Documentation",
+          "description": "Create detailed documentation for AI team workflows, API endpoints, and system architecture",
+          "status": "pending",
+          "priority": "medium",
+          "assignee": "Claude", 
+          "estimated_duration": "3 hours",
+          "specialization": ["documentation", "architecture"],
+          "dependencies": ["qa-1"]
+        },
+        {
+          "id": "qa-3",
+          "title": "Integration Testing Suite",
+          "description": "Develop comprehensive testing suite for AI communication, GitHub integration, and dashboard functionality",
+          "status": "pending",
+          "priority": "low",
+          "assignee": "Codex",
+          "estimated_duration": "2.5 hours",
+          "specialization": ["testing", "automation"],
+          "dependencies": ["int-1", "ui-2"]
+        }
+      ]
+    },
+    {
+      "name": "deployment",
+      "description": "System deployment and production readiness",
+      "tasks": [
+        {
+          "id": "deploy-1",
+          "title": "Production Environment Setup",
+          "description": "Configure production environment with proper security, monitoring, and backup systems",
+          "status": "pending",
+          "priority": "low",
+          "assignee": "Gemini",
+          "estimated_duration": "2 hours",
+          "dependencies": ["qa-3"]
+        },
+        {
+          "id": "deploy-2",
+          "title": "Performance Optimization",
+          "description": "Optimize system performance for handling multiple concurrent AI agents and real-time updates",
+          "status": "pending",
+          "priority": "low",
+          "assignee": "Codex",
+          "estimated_duration": "1.5 hours", 
+          "dependencies": ["deploy-1"]
+        }
+      ]
+    }
+  ],
+  "ai_team_assignments": {
+    "claude": {
+      "primary_role": "Code Review & Documentation Specialist",
+      "session": "iTerm Session 1",
+      "mode": "AI",
+      "specializations": ["code_review", "documentation", "best_practices", "architecture"],
+      "active_tasks": [],
+      "communication_method": "applescript_iterm"
+    },
+    "gemini": {
+      "primary_role": "Data Analysis & System Monitoring Specialist", 
+      "session": "iTerm Session 2",
+      "mode": "Shell/AI Toggle",
+      "specializations": ["research", "data_analysis", "shell_scripting", "system_monitoring"],
+      "active_tasks": [],
+      "communication_method": "applescript_iterm_with_mode_detection"
+    },
+    "codex": {
+      "primary_role": "Code Generation & Automation Specialist",
+      "session": "iTerm Session 4", 
+      "mode": "AI",
+      "specializations": ["code_generation", "automation", "api_development", "testing"],
+      "active_tasks": [],
+      "communication_method": "applescript_iterm"
+    },
+    "cursor": {
+      "primary_role": "Interactive Development & UI Specialist",
+      "app": "Cursor IDE",
+      "access": "Cmd+K",
+      "specializations": ["ui_development", "interactive_coding", "component_creation", "styling"],
+      "active_tasks": [],
+      "communication_method": "applescript_cursor_cmdK"
+    }
+  },
+  "workflow_config": {
+    "progress_reporting_interval": "30 minutes",
+    "file_monitoring_interval": "5 minutes", 
+    "health_check_interval": "10 minutes",
+    "github_sync_interval": "15 minutes",
+    "max_concurrent_tasks_per_ai": 2,
+    "task_timeout_hours": 4,
+    "auto_reassign_on_timeout": true
+  }
+}

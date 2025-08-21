@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-08-21T17:06:02.487430",
+  "passed": 4,
+  "total": 5,
+  "success_rate": 80.0,
+  "results": [
+    {
+      "test": "PL Bot",
+      "pass": true
+    },
+    {
+      "test": "AI Execution",
+      "pass": true
+    },
+    {
+      "test": "Auto-onboarding",
+      "pass": true
+    },
+    {
+      "test": "GitHub CLI",
+      "pass": true
+    },
+    {
+      "test": "Servers",
+      "pass": false
+    }
+  ]
+}

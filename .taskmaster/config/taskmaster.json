@@ -1,0 +1,61 @@
+{
+  "project": {
+    "name": "AI Orchestra Dashboard",
+    "description": "AI 팀원들을 지휘하는 통합 대시보드 - 실시간 AI 협업을 GitHub Issues로 관리하는 시스템",
+    "version": "1.0.0",
+    "type": "web-application",
+    "framework": "Next.js + FastAPI"
+  },
+  "settings": {
+    "main_model": "claude-3-sonnet-20240229",
+    "research_model": "perplexity-llama-3.1-sonar-large-128k-online",
+    "fallback_model": "gpt-4o",
+    "max_tokens": 4000,
+    "temperature": 0.7,
+    "github_integration": true,
+    "auto_assign_tasks": true,
+    "notification_system": "applescript"
+  },
+  "team": {
+    "pm": "Claude (Terminal)",
+    "members": [
+      {
+        "name": "Claude",
+        "role": "Code Review, Documentation",
+        "session": "iTerm Session 1",
+        "mode": "AI"
+      },
+      {
+        "name": "Gemini",
+        "role": "Data Collection, Analysis",
+        "session": "iTerm Session 2", 
+        "mode": "Shell/AI Toggle"
+      },
+      {
+        "name": "Codex",
+        "role": "Code Generation, Automation",
+        "session": "iTerm Session 4",
+        "mode": "AI"
+      },
+      {
+        "name": "Cursor",
+        "role": "VS Code AI Editor",
+        "app": "Cursor",
+        "access": "Cmd+K"
+      }
+    ]
+  },
+  "workflows": {
+    "issue_assignment": {
+      "create_github_issue": true,
+      "notify_via_applescript": true,
+      "require_confirmation": true,
+      "progress_tracking": "30min_intervals"
+    },
+    "communication": {
+      "iterm_automation": true,
+      "cursor_integration": true,
+      "status_updates": "real_time"
+    }
+  }
+}

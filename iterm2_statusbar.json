@@ -1,0 +1,30 @@
+{
+  "components": [
+    {
+      "type": "cpu",
+      "label": "CPU"
+    },
+    {
+      "type": "memory",
+      "label": "MEM"
+    },
+    {
+      "type": "network",
+      "label": "NET"
+    },
+    {
+      "type": "custom",
+      "label": "AI Status",
+      "value": "4/4 Active"
+    },
+    {
+      "type": "custom",
+      "label": "Tasks",
+      "value": "12 Done"
+    },
+    {
+      "type": "clock",
+      "format": "%H:%M"
+    }
+  ]
+}

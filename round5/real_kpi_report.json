@@ -1,0 +1,71 @@
+{
+  "timestamp": "2025-08-21T21:43:07.400732",
+  "runtime_seconds": 3.929682,
+  "summary": {
+    "total_communications": 3,
+    "successful_communications": 3,
+    "success_rate": 100.0,
+    "github_actions": 1,
+    "errors": 0
+  },
+  "ai_performance": {
+    "Gemini": {
+      "total": 1,
+      "success": 1,
+      "total_time": 0.1314249038696289
+    },
+    "Codex": {
+      "total": 1,
+      "success": 1,
+      "total_time": 0.14380383491516113
+    },
+    "Tab 4 Claude": {
+      "total": 1,
+      "success": 1,
+      "total_time": 0.14055180549621582
+    }
+  },
+  "raw_data": {
+    "start_time": "2025-08-21T21:43:03.471024",
+    "communications": [
+      {
+        "ai": "Gemini",
+        "tab": 2,
+        "task": "echo 'Gemini\uac00 \uc791\uc5c5\uc744 \uc2dc\uc791\ud569\ub2c8\ub2e4'",
+        "success": true,
+        "response_time": 0.1314249038696289,
+        "timestamp": "2025-08-21T21:43:03.602468",
+        "error": null
+      },
+      {
+        "ai": "Codex",
+        "tab": 3,
+        "task": "echo 'Codex\uac00 \ubc31\uc5d4\ub4dc\ub97c \uc810\uac80\ud569\ub2c8\ub2e4'",
+        "success": true,
+        "response_time": 0.14380383491516113,
+        "timestamp": "2025-08-21T21:43:04.747504",
+        "error": null
+      },
+      {
+        "ai": "Tab 4 Claude",
+        "tab": 4,
+        "task": "ls -la /Users/m4_macbook/Projects/ai-orchestra-dashboard/round5/",
+        "success": true,
+        "response_time": 0.14055180549621582,
+        "timestamp": "2025-08-21T21:43:05.893182",
+        "error": null
+      }
+    ],
+    "github_actions": [
+      {
+        "type": "pr_check",
+        "pr_number": 61,
+        "state": "OPEN",
+        "mergeable": "MERGEABLE",
+        "reviews": 0,
+        "timestamp": "2025-08-21T21:43:07.400663"
+      }
+    ],
+    "errors": []
+  }
+}

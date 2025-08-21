@@ -1,0 +1,27 @@
+{
+  "timestamp": "2025-08-21T22:13:04.571056",
+  "team_status": {
+    "Gemini": {
+      "status": "active",
+      "last_response": "2025-08-21 22:13:04.451379",
+      "task": null
+    },
+    "Codex": {
+      "status": "active",
+      "last_response": "2025-08-21 22:13:04.483342",
+      "task": null
+    },
+    "Cursor": {
+      "status": "active",
+      "last_response": "2025-08-21 22:13:04.571037",
+      "task": null
+    },
+    "Claude": {
+      "status": "active",
+      "last_response": "2025-08-21 22:13:04.571051",
+      "task": null
+    }
+  },
+  "allow_pending": 0,
+  "blocked_tasks": 0
+}
