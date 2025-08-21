@@ -242,6 +242,43 @@ osascript -e 'tell application "iTerm2"
     end tell
 end tell'
 
+# Step 2-1: 엔터 미전송 문제 확인 (메시지는 보이나 실행 안됨)
+# 증상: 프롬프트에 메시지는 있으나 엔터가 없어 실행되지 않음
+osascript -e '
+tell application "iTerm2"
+    tell current window
+        tell tab 4
+            tell session 1
+                if is at shell prompt then
+                    return "엔터 필요"
+                else if is processing then
+                    return "처리 중"
+                end if
+            end tell
+        end tell
+    end tell
+end tell'
+
+# Step 2-2: 엔터 재전송 (기존 대책 활용)
+# 방법 1: 직접 엔터 전송
+osascript -e '
+tell application "iTerm2"
+    tell current window
+        tell tab 4
+            tell session 1
+                write text ""  # 빈 텍스트 = 엔터
+            end tell
+        end tell
+    end tell
+end tell'
+
+# 방법 2: Smart Prompt Sender 사용
+python3 -c "
+from smart_prompt_sender import SmartPromptSender
+sender = SmartPromptSender()
+sender.send_enter_key('ORCH_CLAUDE')  # 세션 ID에 엔터 전송
+"
+
 # Step 3: 백업 AI 활성화
 python3 -c "
 from pl_bot_v3 import PLBotV3
