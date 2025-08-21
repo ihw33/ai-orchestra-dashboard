@@ -1,0 +1,21 @@
+# AI Orchestra 라우팅 규칙
+# 형식: source -> target  regex(선택)
+# regex의 첫 번째 캡처 그룹이 전달됨
+
+# PM Claude가 @gemini: 로 시작하는 메시지를 출력하면 Gemini에게 전달
+pm-claude -> gemini  ^@gemini:(.*)
+
+# PM Claude가 @codex: 로 시작하는 메시지를 출력하면 Codex에게 전달
+pm-claude -> codex  ^@codex:(.*)
+
+# Gemini가 @pm: 으로 보고하면 PM에게 전달
+gemini -> pm-claude  ^@pm:(.*)
+
+# Codex가 @pm: 으로 보고하면 PM에게 전달
+codex -> pm-claude  ^@pm:(.*)
+
+# 협업: Gemini가 @codex: 로 시작하면 Codex에게
+gemini -> codex  ^@codex:(.*)
+
+# 협업: Codex가 @gemini: 로 시작하면 Gemini에게
+codex -> gemini  ^@gemini:(.*)

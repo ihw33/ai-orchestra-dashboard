@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "orchestra": {
+      "command": "python3",
+      "args": ["/Users/m4_macbook/ai-orchestra-dashboard/mcp-orchestra-server.py"],
+      "env": {}
+    }
+  }
+}
