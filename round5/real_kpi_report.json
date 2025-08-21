@@ -1,6 +1,6 @@
 {
-  "timestamp": "2025-08-21T21:43:07.400732",
-  "runtime_seconds": 3.929682,
+  "timestamp": "2025-08-21T22:26:55.973685",
+  "runtime_seconds": 3.9424,
   "summary": {
     "total_communications": 3,
     "successful_communications": 3,
@@ -12,29 +12,29 @@
     "Gemini": {
       "total": 1,
       "success": 1,
-      "total_time": 0.1314249038696289
+      "total_time": 0.14528822898864746
     },
     "Codex": {
       "total": 1,
       "success": 1,
-      "total_time": 0.14380383491516113
+      "total_time": 0.15703392028808594
     },
     "Tab 4 Claude": {
       "total": 1,
       "success": 1,
-      "total_time": 0.14055180549621582
+      "total_time": 0.15162992477416992
     }
   },
   "raw_data": {
-    "start_time": "2025-08-21T21:43:03.471024",
+    "start_time": "2025-08-21T22:26:52.031259",
     "communications": [
       {
         "ai": "Gemini",
         "tab": 2,
         "task": "echo 'Gemini\uac00 \uc791\uc5c5\uc744 \uc2dc\uc791\ud569\ub2c8\ub2e4'",
         "success": true,
-        "response_time": 0.1314249038696289,
-        "timestamp": "2025-08-21T21:43:03.602468",
+        "response_time": 0.14528822898864746,
+        "timestamp": "2025-08-21T22:26:52.176570",
         "error": null
       },
       {
@@ -42,8 +42,8 @@
         "tab": 3,
         "task": "echo 'Codex\uac00 \ubc31\uc5d4\ub4dc\ub97c \uc810\uac80\ud569\ub2c8\ub2e4'",
         "success": true,
-        "response_time": 0.14380383491516113,
-        "timestamp": "2025-08-21T21:43:04.747504",
+        "response_time": 0.15703392028808594,
+        "timestamp": "2025-08-21T22:26:53.338740",
         "error": null
       },
       {
@@ -51,8 +51,8 @@
         "tab": 4,
         "task": "ls -la /Users/m4_macbook/Projects/ai-orchestra-dashboard/round5/",
         "success": true,
-        "response_time": 0.14055180549621582,
-        "timestamp": "2025-08-21T21:43:05.893182",
+        "response_time": 0.15162992477416992,
+        "timestamp": "2025-08-21T22:26:54.495476",
         "error": null
       }
     ],
@@ -63,7 +63,7 @@
         "state": "OPEN",
         "mergeable": "MERGEABLE",
         "reviews": 0,
-        "timestamp": "2025-08-21T21:43:07.400663"
+        "timestamp": "2025-08-21T22:26:55.973621"
       }
     ],
     "errors": []
