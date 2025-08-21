@@ -14,6 +14,7 @@ class Project(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
+    slug = Column(String, unique=True, index=True, nullable=True)
     description = Column(Text)
     github_repo = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)

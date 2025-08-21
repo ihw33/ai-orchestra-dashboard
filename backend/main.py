@@ -14,13 +14,26 @@ import json
 # Load environment variables
 load_dotenv()
 
-# Import routers (will be created)
-# from app.routers import github, ai, auth, dashboard
+# Import routers
+from app.routers import pm_router
+from app.routers import projects_router
+from app.routers import auth
+from app.routers import websocket
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Manage application lifecycle"""
     print("🚀 Starting AI Orchestra Dashboard Backend...")
+    
+    # Validate configuration on startup
+    from app.config import settings
+    try:
+        settings.validate()
+        print(f"✅ Configuration validated: {settings}")
+    except ValueError as e:
+        print(f"❌ Configuration error: {e}")
+        raise
+    
     yield
     print("👋 Shutting down AI Orchestra Dashboard Backend...")
 
@@ -119,10 +132,13 @@ async def github_webhook(payload: dict):
     
     return {"status": "received"}
 
-# Include routers (when created)
+# Include routers
+app.include_router(pm_router.router)
+app.include_router(projects_router.router)
+app.include_router(auth.router)
+app.include_router(websocket.router)
 # app.include_router(github.router, prefix="/api/github", tags=["github"])
 # app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
-# app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 # app.include_router(dashboard.router, prefix="/api/dashboard", tags=["dashboard"])
 
 if __name__ == "__main__":
