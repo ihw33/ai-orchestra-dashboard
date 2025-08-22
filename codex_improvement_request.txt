@@ -1,0 +1,11 @@
+Please improve the KPI tracking system code from https://github.com/ihw33/ai-orchestra-dashboard/pull/61
+
+Focus on these improvements:
+1. Replace arrays with memory-safe aggregates (count, sum, max)
+2. Fix backup activation rate calculation (use percentage not count)
+3. Use dataclasses instead of nested dicts
+4. Add proper logging with rotation
+5. Fix runtime calculation bug
+6. Add input validation and error handling
+
+Please generate an improved version of detailed_kpi_system.py with these fixes.

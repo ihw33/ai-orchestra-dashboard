@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-08-21T16:12:04.340590",
+  "round": 4,
+  "tests": [
+    {
+      "name": "Allow Handler",
+      "passed": true
+    },
+    {
+      "name": "PL Bot",
+      "passed": true
+    },
+    {
+      "name": "Auto Onboarding",
+      "passed": true
+    },
+    {
+      "name": "Integration",
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 4,
+    "failed": 0,
+    "success_rate": "100%"
+  }
+}

@@ -1,0 +1,479 @@
+{
+  "project": "AI Orchestra Dashboard - Round 2 (Data Layer)",
+  "prd_source": "/Users/m4_macbook/Projects/ai-orchestra-dashboard/.taskmaster/docs/ai_orchestra_round2.md",
+  "created": "2025-08-20T00:00:00Z",
+  "round": 2,
+  "focus": "Real-time GitHub data integration",
+  "phases": [
+    {
+      "phase_id": "phase1",
+      "name": "API Connection Setup",
+      "description": "Establish reliable GitHub API connection with rate limiting",
+      "timeline": "Day 1",
+      "tasks": [
+        {
+          "id": "r2-p1-t1",
+          "title": "GitHub API Rate Limit Management System",
+          "github_issue": "#27",
+          "priority": "P0",
+          "description": "Implement comprehensive rate limit handling for GitHub API requests with monitoring and retry logic",
+          "assignee": "Gemini",
+          "estimated_duration": "3 hours",
+          "specializations": ["research", "data_analysis", "system_monitoring"],
+          "subtasks": [
+            {
+              "id": "r2-p1-t1-s1",
+              "title": "Implement rate limit detection middleware",
+              "description": "Create middleware to detect GitHub API rate limit headers and current usage",
+              "assignee": "Gemini",
+              "estimated_duration": "45 minutes",
+              "technical_details": "Monitor X-RateLimit-Remaining, X-RateLimit-Reset headers"
+            },
+            {
+              "id": "r2-p1-t1-s2", 
+              "title": "Build exponential backoff retry logic",
+              "description": "Implement intelligent retry mechanism with exponential backoff for rate-limited requests",
+              "assignee": "Codex",
+              "estimated_duration": "60 minutes",
+              "technical_details": "Exponential backoff: 1s, 2s, 4s, 8s, 16s with jitter"
+            },
+            {
+              "id": "r2-p1-t1-s3",
+              "title": "Create rate limit status dashboard component",
+              "description": "Build UI component showing current rate limit status and usage statistics",
+              "assignee": "Cursor", 
+              "estimated_duration": "45 minutes",
+              "technical_details": "Real-time display of remaining calls, reset time, usage graphs"
+            },
+            {
+              "id": "r2-p1-t1-s4",
+              "title": "Develop high-volume request testing suite",
+              "description": "Create comprehensive test suite to validate rate limiting under high load",
+              "assignee": "Codex",
+              "estimated_duration": "30 minutes",
+              "technical_details": "Simulate API bursts, validate backoff behavior, test edge cases"
+            }
+          ],
+          "dependencies": [],
+          "acceptance_criteria": [
+            "Rate limit detection works for all GitHub API endpoints",
+            "Retry logic prevents API errors during high usage",
+            "Dashboard shows real-time rate limit status",
+            "System handles 1000+ requests/hour without failures"
+          ]
+        },
+        {
+          "id": "r2-p1-t2",
+          "title": "Repository Metadata Collection System",
+          "github_issue": "#28",
+          "priority": "P1", 
+          "description": "Implement automated repository metadata fetching and storage with scheduled updates",
+          "assignee": "Codex",
+          "estimated_duration": "2.5 hours",
+          "specializations": ["api_development", "automation"],
+          "subtasks": [
+            {
+              "id": "r2-p1-t2-s1",
+              "title": "Design repository metadata API endpoints",
+              "description": "Create FastAPI endpoints for fetching and managing repository metadata",
+              "assignee": "Codex",
+              "estimated_duration": "45 minutes",
+              "technical_details": "RESTful endpoints: GET /repos/{owner}/{repo}/metadata, POST /repos/sync"
+            },
+            {
+              "id": "r2-p1-t2-s2",
+              "title": "Implement GitHub repository data fetcher",
+              "description": "Build service to fetch repository basic information and settings from GitHub API",
+              "assignee": "Codex",
+              "estimated_duration": "60 minutes", 
+              "technical_details": "Fetch: name, description, topics, language, stars, forks, settings"
+            },
+            {
+              "id": "r2-p1-t2-s3",
+              "title": "Create repository metadata database schema",
+              "description": "Design and implement database schema for storing repository metadata",
+              "assignee": "Codex",
+              "estimated_duration": "30 minutes",
+              "technical_details": "Tables: repositories, repo_settings, repo_stats with proper indexing"
+            },
+            {
+              "id": "r2-p1-t2-s4",
+              "title": "Build scheduled metadata update system",
+              "description": "Implement background job system for regular metadata synchronization",
+              "assignee": "Gemini",
+              "estimated_duration": "45 minutes",
+              "technical_details": "Cron-like scheduler, configurable intervals, error handling"
+            }
+          ],
+          "dependencies": ["r2-p1-t1"],
+          "acceptance_criteria": [
+            "Repository metadata is fetched from GitHub API",
+            "Data is stored in normalized database schema", 
+            "Scheduled updates run every 6 hours automatically",
+            "API endpoints provide access to metadata"
+          ]
+        }
+      ]
+    },
+    {
+      "phase_id": "phase2", 
+      "name": "Data Synchronization",
+      "description": "Real-time synchronization of Issues and Pull Requests",
+      "timeline": "Day 2",
+      "tasks": [
+        {
+          "id": "r2-p2-t1",
+          "title": "GitHub Issues Real-time Synchronization",
+          "github_issue": "#29",
+          "priority": "P1",
+          "description": "Implement real-time GitHub Issues webhook handling with data normalization and storage",
+          "assignee": "Gemini",
+          "estimated_duration": "3 hours",
+          "specializations": ["data_analysis", "system_monitoring"],
+          "subtasks": [
+            {
+              "id": "r2-p2-t1-s1",
+              "title": "Set up GitHub Issues webhook endpoint",
+              "description": "Create secure webhook endpoint to receive GitHub Issues events",
+              "assignee": "Codex",
+              "estimated_duration": "45 minutes",
+              "technical_details": "POST /webhooks/github/issues with signature verification"
+            },
+            {
+              "id": "r2-p2-t1-s2",
+              "title": "Implement issue data normalization pipeline",
+              "description": "Build data transformation pipeline to normalize GitHub Issues data format",
+              "assignee": "Gemini", 
+              "estimated_duration": "60 minutes",
+              "technical_details": "Transform: title, body, labels, assignees, state, created_at, updated_at"
+            },
+            {
+              "id": "r2-p2-t1-s3",
+              "title": "Create issues database schema and storage",
+              "description": "Design database schema for issues and implement storage operations",
+              "assignee": "Codex",
+              "estimated_duration": "45 minutes",
+              "technical_details": "Tables: issues, issue_labels, issue_assignees with relationships"
+            },
+            {
+              "id": "r2-p2-t1-s4",
+              "title": "Build real-time dashboard issue updates",
+              "description": "Implement WebSocket broadcasting for live issue updates in dashboard",
+              "assignee": "Cursor",
+              "estimated_duration": "30 minutes",
+              "technical_details": "WebSocket events: issue_created, issue_updated, issue_closed"
+            }
+          ],
+          "dependencies": ["r2-p1-t1", "r2-p1-t2"],
+          "acceptance_criteria": [
+            "Webhook receives all GitHub Issues events securely",
+            "Issue data is normalized and stored in database",
+            "Dashboard updates in real-time when issues change",
+            "No data loss during high-frequency updates"
+          ]
+        },
+        {
+          "id": "r2-p2-t2",
+          "title": "Pull Requests Real-time Synchronization", 
+          "github_issue": "#30",
+          "priority": "P1",
+          "description": "Implement real-time GitHub Pull Requests webhook handling with comprehensive data tracking",
+          "assignee": "Gemini",
+          "estimated_duration": "3 hours",
+          "specializations": ["data_analysis", "system_monitoring"],
+          "subtasks": [
+            {
+              "id": "r2-p2-t2-s1",
+              "title": "Set up GitHub PR webhook endpoint",
+              "description": "Create secure webhook endpoint to receive GitHub Pull Request events",
+              "assignee": "Codex",
+              "estimated_duration": "45 minutes",
+              "technical_details": "POST /webhooks/github/pulls with signature verification"
+            },
+            {
+              "id": "r2-p2-t2-s2",
+              "title": "Implement PR data normalization pipeline",
+              "description": "Build comprehensive data transformation for PR data including metrics",
+              "assignee": "Gemini",
+              "estimated_duration": "75 minutes",
+              "technical_details": "Transform: title, body, state, reviews, checks, files_changed, additions, deletions"
+            },
+            {
+              "id": "r2-p2-t2-s3",
+              "title": "Create pull requests database schema",
+              "description": "Design comprehensive database schema for PRs with review and check data",
+              "assignee": "Codex",
+              "estimated_duration": "45 minutes",
+              "technical_details": "Tables: pull_requests, pr_reviews, pr_checks, pr_files with foreign keys"
+            },
+            {
+              "id": "r2-p2-t2-s4",
+              "title": "Build real-time PR dashboard updates",
+              "description": "Implement live PR status updates with review progress and check status",
+              "assignee": "Cursor",
+              "estimated_duration": "15 minutes",
+              "technical_details": "WebSocket events: pr_opened, pr_updated, review_submitted, checks_completed"
+            }
+          ],
+          "dependencies": ["r2-p2-t1"],
+          "acceptance_criteria": [
+            "Webhook receives all GitHub PR events securely",
+            "PR data including reviews and checks is stored",
+            "Dashboard shows real-time PR status updates",
+            "Review progress and CI status visible in real-time"
+          ]
+        }
+      ]
+    },
+    {
+      "phase_id": "phase3",
+      "name": "Data Processing", 
+      "description": "Data normalization, storage optimization, and real-time communication",
+      "timeline": "Day 3",
+      "tasks": [
+        {
+          "id": "r2-p3-t1",
+          "title": "Unified Data Schema and Storage System",
+          "github_issue": "#31",
+          "priority": "P1",
+          "description": "Design and implement unified data schema with validation and transformation pipeline",
+          "assignee": "Codex",
+          "estimated_duration": "3.5 hours",
+          "specializations": ["api_development", "automation"],
+          "subtasks": [
+            {
+              "id": "r2-p3-t1-s1",
+              "title": "Design unified data schema architecture",
+              "description": "Create comprehensive database schema unifying all GitHub data types",
+              "assignee": "Codex",
+              "estimated_duration": "60 minutes",
+              "technical_details": "Schema: repositories, issues, pull_requests, users, events with proper normalization"
+            },
+            {
+              "id": "r2-p3-t1-s2",
+              "title": "Implement data transformation pipeline",
+              "description": "Build ETL pipeline for transforming GitHub API data to unified schema",
+              "assignee": "Codex",
+              "estimated_duration": "90 minutes",
+              "technical_details": "Pipeline stages: extract, validate, transform, load with error handling"
+            },
+            {
+              "id": "r2-p3-t1-s3",
+              "title": "Create database models and migrations",
+              "description": "Implement ORM models and database migration scripts for the unified schema",
+              "assignee": "Codex", 
+              "estimated_duration": "45 minutes",
+              "technical_details": "SQLAlchemy models, Alembic migrations, proper constraints and indexes"
+            },
+            {
+              "id": "r2-p3-t1-s4",
+              "title": "Build comprehensive data validation system",
+              "description": "Implement data validation rules and integrity checks for all data types",
+              "assignee": "Claude",
+              "estimated_duration": "45 minutes",
+              "technical_details": "Pydantic validators, business rules, referential integrity checks"
+            }
+          ],
+          "dependencies": ["r2-p2-t1", "r2-p2-t2"],
+          "acceptance_criteria": [
+            "Unified schema accommodates all GitHub data types",
+            "Data transformation pipeline handles edge cases",
+            "Database models support efficient queries",
+            "Data validation prevents corruption"
+          ]
+        },
+        {
+          "id": "r2-p3-t2",
+          "title": "WebSocket Real-time Communication System",
+          "github_issue": "#32",
+          "priority": "P2",
+          "description": "Implement robust WebSocket server for real-time updates with connection management",
+          "assignee": "Codex",
+          "estimated_duration": "2.5 hours",
+          "specializations": ["api_development", "automation"],
+          "subtasks": [
+            {
+              "id": "r2-p3-t2-s1",
+              "title": "Set up WebSocket server infrastructure",
+              "description": "Implement WebSocket server with FastAPI and connection pooling",
+              "assignee": "Codex",
+              "estimated_duration": "60 minutes",
+              "technical_details": "FastAPI WebSocket endpoint, connection manager, room-based messaging"
+            },
+            {
+              "id": "r2-p3-t2-s2",
+              "title": "Implement client connection management",
+              "description": "Build robust client connection handling with authentication and authorization",
+              "assignee": "Codex",
+              "estimated_duration": "45 minutes",
+              "technical_details": "Connection lifecycle, authentication tokens, user session management"
+            },
+            {
+              "id": "r2-p3-t2-s3",
+              "title": "Create event broadcasting system",
+              "description": "Build event broadcasting system for distributing updates to connected clients",
+              "assignee": "Codex",
+              "estimated_duration": "30 minutes",
+              "technical_details": "Event types: repository, issue, pr, user events with filtering"
+            },
+            {
+              "id": "r2-p3-t2-s4",
+              "title": "Add WebSocket reconnection logic",
+              "description": "Implement client-side reconnection logic with exponential backoff",
+              "assignee": "Cursor",
+              "estimated_duration": "15 minutes",
+              "technical_details": "Auto-reconnect, message queue during disconnect, connection status indicator"
+            }
+          ],
+          "dependencies": ["r2-p3-t1"],
+          "acceptance_criteria": [
+            "WebSocket server handles 100+ concurrent connections",
+            "Connection management is robust and secure",
+            "Event broadcasting works reliably",
+            "Clients reconnect automatically on disconnect"
+          ]
+        }
+      ]
+    },
+    {
+      "phase_id": "phase4",
+      "name": "UI Integration",
+      "description": "Frontend integration with real-time data display",
+      "timeline": "Day 4", 
+      "tasks": [
+        {
+          "id": "r2-p4-t1",
+          "title": "Dashboard API Integration Layer",
+          "github_issue": "#33",
+          "priority": "P1",
+          "description": "Connect frontend to backend APIs with comprehensive data fetching and state management",
+          "assignee": "Cursor",
+          "estimated_duration": "3 hours",
+          "specializations": ["ui_development", "component_creation"],
+          "subtasks": [
+            {
+              "id": "r2-p4-t1-s1",
+              "title": "Create API client service layer",
+              "description": "Build TypeScript API client with all backend endpoint integrations",
+              "assignee": "Cursor",
+              "estimated_duration": "60 minutes",
+              "technical_details": "Axios client, request/response interceptors, error handling, typing"
+            },
+            {
+              "id": "r2-p4-t1-s2",
+              "title": "Implement React data fetching hooks",
+              "description": "Create custom React hooks for data fetching with caching and state management",
+              "assignee": "Cursor",
+              "estimated_duration": "75 minutes", 
+              "technical_details": "Custom hooks: useRepositories, useIssues, usePullRequests with React Query"
+            },
+            {
+              "id": "r2-p4-t1-s3",
+              "title": "Build loading and error state components",
+              "description": "Create comprehensive loading and error state UI components",
+              "assignee": "Cursor",
+              "estimated_duration": "30 minutes",
+              "technical_details": "Loading spinners, skeleton screens, error boundaries, retry mechanisms"
+            },
+            {
+              "id": "r2-p4-t1-s4",
+              "title": "Implement data refresh mechanisms",
+              "description": "Build manual and automatic data refresh functionality with cache invalidation",
+              "assignee": "Cursor",
+              "estimated_duration": "15 minutes",
+              "technical_details": "Pull-to-refresh, auto-refresh intervals, cache invalidation strategies"
+            }
+          ],
+          "dependencies": ["r2-p3-t2"],
+          "acceptance_criteria": [
+            "All backend APIs are integrated in frontend",
+            "Data fetching hooks handle all states properly",
+            "Loading and error states provide good UX",
+            "Data refresh works manually and automatically"
+          ]
+        },
+        {
+          "id": "r2-p4-t2",
+          "title": "Real-time Data Display System",
+          "github_issue": "#34",
+          "priority": "P1",
+          "description": "Implement live data visualization with animations and notifications",
+          "assignee": "Cursor",
+          "estimated_duration": "3 hours",
+          "specializations": ["ui_development", "component_creation"],
+          "subtasks": [
+            {
+              "id": "r2-p4-t2-s1",
+              "title": "Update UI components with WebSocket data",
+              "description": "Integrate WebSocket data streams into React components for live updates",
+              "assignee": "Cursor",
+              "estimated_duration": "75 minutes",
+              "technical_details": "WebSocket React hook, real-time state updates, data synchronization"
+            },
+            {
+              "id": "r2-p4-t2-s2",
+              "title": "Add real-time status indicators",
+              "description": "Create visual indicators showing real-time status and activity",
+              "assignee": "Cursor",
+              "estimated_duration": "45 minutes",
+              "technical_details": "Status badges, activity indicators, connection status, last update timestamps"
+            },
+            {
+              "id": "r2-p4-t2-s3",
+              "title": "Implement smooth data transition animations",
+              "description": "Add smooth animations for data updates and state changes",
+              "assignee": "Cursor",
+              "estimated_duration": "45 minutes",
+              "technical_details": "Framer Motion animations, data interpolation, loading transitions"
+            },
+            {
+              "id": "r2-p4-t2-s4",
+              "title": "Create notification system for updates",
+              "description": "Build in-app notification system for important data changes",
+              "assignee": "Cursor",
+              "estimated_duration": "15 minutes",
+              "technical_details": "Toast notifications, notification center, configurable alert types"
+            }
+          ],
+          "dependencies": ["r2-p4-t1"],
+          "acceptance_criteria": [
+            "UI updates in real-time with WebSocket data",
+            "Status indicators show current system state",
+            "Animations enhance user experience",
+            "Notifications alert users to important changes"
+          ]
+        }
+      ]
+    }
+  ],
+  "technical_requirements": {
+    "backend": "FastAPI with Python",
+    "frontend": "Next.js with TypeScript", 
+    "database": "PostgreSQL or SQLite",
+    "realtime": "WebSocket",
+    "api": "GitHub REST API v4"
+  },
+  "success_criteria": [
+    "All GitHub data updates within 5 seconds",
+    "Zero data loss during synchronization", 
+    "Rate limit handling prevents API errors",
+    "Dashboard shows real-time project status"
+  ],
+  "team_assignments": {
+    "gemini": ["#27", "#29", "#30"],
+    "codex": ["#28", "#31", "#32"],
+    "cursor": ["#33", "#34"],
+    "claude": ["code_review", "documentation", "quality_assurance"]
+  },
+  "timeline": {
+    "phase1": "Day 1",
+    "phase2": "Day 2", 
+    "phase3": "Day 3",
+    "phase4": "Day 4"
+  },
+  "dependencies_map": {
+    "github_api_token": "Required with full permissions",
+    "websocket_infrastructure": "Backend WebSocket server setup",
+    "database_setup": "PostgreSQL or SQLite configured"
+  }
+}

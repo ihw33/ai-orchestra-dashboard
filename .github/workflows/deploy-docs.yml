@@ -1,0 +1,142 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/deploy-docs.yml'
+      - 'README.md'
+      - '*.md'
+  
+  # Allow manual triggering
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for git info
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: Install MkDocs and dependencies
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs-material
+          pip install mkdocs-git-revision-date-localized-plugin
+          pip install mkdocs-minify-plugin
+          pip install mkdocs-redirects
+      
+      - name: Create missing documentation files
+        run: |
+          # Create getting-started.md if it doesn't exist
+          if [ ! -f "docs/getting-started.md" ]; then
+            cat > docs/getting-started.md << 'EOF'
+          # Getting Started with AI Orchestra Dashboard
+          
+          Welcome to the AI Orchestra Dashboard! This guide will help you get up and running quickly.
+          
+          ## Quick Setup
+          
+          1. **Prerequisites**: Ensure you have Node.js 18+, Python 3.10+, and GitHub CLI installed
+          2. **Clone the repository**: `git clone https://github.com/ihw33/ai-orchestra-dashboard.git`
+          3. **Environment setup**: Copy `.env.example` to `.env` and configure your settings
+          4. **Install dependencies**: Run setup scripts for frontend and backend
+          5. **Start services**: Launch both frontend and backend services
+          
+          ## Next Steps
+          
+          - Read the [PM Guide](PM_Guide.md) if you're managing the project
+          - Check the [Team Guide](Team_Guide.md) if you're an AI team member
+          - Review the [Technical Architecture](TECHNICAL_ARCHITECTURE.md) for system details
+          
+          For detailed instructions, see the [Setup Guide](../SETUP_GUIDE.md).
+          EOF
+          fi
+          
+          # Ensure all referenced files exist or create placeholders
+          touch docs/stylesheets/extra.css || mkdir -p docs/stylesheets && touch docs/stylesheets/extra.css
+      
+      - name: Validate MkDocs configuration
+        run: |
+          mkdocs --version
+          python -c "import yaml; yaml.safe_load(open('mkdocs.yml'))"
+      
+      - name: Build documentation
+        run: |
+          mkdocs build --verbose --clean --strict
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: site
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+      
+      - name: Update deployment status
+        if: always()
+        run: |
+          if [ "${{ steps.deployment.outcome }}" == "success" ]; then
+            echo "✅ Documentation deployed successfully to ${{ steps.deployment.outputs.page_url }}"
+          else
+            echo "❌ Documentation deployment failed"
+            exit 1
+          fi
+
+  # Notification job
+  notify:
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: always()
+    steps:
+      - name: Notification
+        run: |
+          if [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "📚 Documentation has been updated and is live at: https://ihw33.github.io/ai-orchestra-dashboard"
+          else
+            echo "⚠️ Documentation deployment encountered issues. Please check the logs."
+          fi

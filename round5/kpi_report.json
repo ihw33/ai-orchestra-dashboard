@@ -1,0 +1,267 @@
+{
+  "report": {
+    "timestamp": "2025-08-21T21:23:28.315417",
+    "runtime_minutes": 3.4e-06,
+    "team_performance": {
+      "Gemini": {
+        "role": "Frontend Lead",
+        "summary": {
+          "issue_completion_rate": 100.0,
+          "pr_merge_rate": 0.0,
+          "response_rate": 100.0,
+          "backup_activation_rate": 0.0,
+          "process_compliance_rate": 100.0,
+          "error_resolution_rate": 100.0
+        },
+        "detailed": {
+          "ai_name": "Gemini",
+          "role": "Frontend Lead",
+          "issues": {
+            "issues_assigned": 1,
+            "issues_acknowledged": 0,
+            "issues_started": 1,
+            "issues_completed": 1,
+            "issues_abandoned": 0,
+            "time_to_start_sum": 300.0,
+            "time_to_start_count": 1,
+            "time_to_complete_sum": 7200.0,
+            "time_to_complete_count": 1
+          },
+          "prs": {
+            "prs_created": 0,
+            "prs_updated": 0,
+            "pr_descriptions_written": 0,
+            "review_requested": 0,
+            "reviews_received": 0,
+            "reviews_given": 0,
+            "review_comments_addressed": 0,
+            "pr_merged": 0,
+            "pr_closed": 0
+          },
+          "responses": {
+            "total_calls": 1,
+            "successful_responses": 1,
+            "failed_responses": 0,
+            "timeout_count": 0,
+            "retry_count": 0,
+            "response_time_sum": 3.5,
+            "response_time_count": 1,
+            "response_time_max": 3.5
+          },
+          "backup": {
+            "times_backed_up": 0,
+            "times_as_backup": 1,
+            "backup_success": 0,
+            "backup_failure": 0,
+            "total_tasks": 1
+          },
+          "errors_encountered": 0,
+          "errors_resolved": 0,
+          "workflow_followed": 0,
+          "workflow_violated": 0
+        }
+      },
+      "Codex": {
+        "role": "Backend Engineer",
+        "summary": {
+          "issue_completion_rate": 0.0,
+          "pr_merge_rate": 0.0,
+          "response_rate": 0.0,
+          "backup_activation_rate": 0.0,
+          "process_compliance_rate": 100.0,
+          "error_resolution_rate": 100.0
+        },
+        "detailed": {
+          "ai_name": "Codex",
+          "role": "Backend Engineer",
+          "issues": {
+            "issues_assigned": 0,
+            "issues_acknowledged": 0,
+            "issues_started": 0,
+            "issues_completed": 0,
+            "issues_abandoned": 0,
+            "time_to_start_sum": 0.0,
+            "time_to_start_count": 0,
+            "time_to_complete_sum": 0.0,
+            "time_to_complete_count": 0
+          },
+          "prs": {
+            "prs_created": 0,
+            "prs_updated": 0,
+            "pr_descriptions_written": 0,
+            "review_requested": 0,
+            "reviews_received": 0,
+            "reviews_given": 0,
+            "review_comments_addressed": 0,
+            "pr_merged": 0,
+            "pr_closed": 0
+          },
+          "responses": {
+            "total_calls": 1,
+            "successful_responses": 0,
+            "failed_responses": 1,
+            "timeout_count": 1,
+            "retry_count": 0,
+            "response_time_sum": 0.0,
+            "response_time_count": 0,
+            "response_time_max": 0.0
+          },
+          "backup": {
+            "times_backed_up": 1,
+            "times_as_backup": 0,
+            "backup_success": 0,
+            "backup_failure": 0,
+            "total_tasks": 0
+          },
+          "errors_encountered": 0,
+          "errors_resolved": 0,
+          "workflow_followed": 0,
+          "workflow_violated": 0
+        }
+      },
+      "Claude": {
+        "role": "PM & QA",
+        "summary": {
+          "issue_completion_rate": 0.0,
+          "pr_merge_rate": 0.0,
+          "response_rate": 0.0,
+          "backup_activation_rate": 0.0,
+          "process_compliance_rate": 100.0,
+          "error_resolution_rate": 100.0
+        },
+        "detailed": {
+          "ai_name": "Claude",
+          "role": "PM & QA",
+          "issues": {
+            "issues_assigned": 0,
+            "issues_acknowledged": 0,
+            "issues_started": 0,
+            "issues_completed": 0,
+            "issues_abandoned": 0,
+            "time_to_start_sum": 0.0,
+            "time_to_start_count": 0,
+            "time_to_complete_sum": 0.0,
+            "time_to_complete_count": 0
+          },
+          "prs": {
+            "prs_created": 0,
+            "prs_updated": 0,
+            "pr_descriptions_written": 0,
+            "review_requested": 0,
+            "reviews_received": 0,
+            "reviews_given": 0,
+            "review_comments_addressed": 0,
+            "pr_merged": 0,
+            "pr_closed": 0
+          },
+          "responses": {
+            "total_calls": 0,
+            "successful_responses": 0,
+            "failed_responses": 0,
+            "timeout_count": 0,
+            "retry_count": 0,
+            "response_time_sum": 0.0,
+            "response_time_count": 0,
+            "response_time_max": 0.0
+          },
+          "backup": {
+            "times_backed_up": 0,
+            "times_as_backup": 0,
+            "backup_success": 0,
+            "backup_failure": 0,
+            "total_tasks": 0
+          },
+          "errors_encountered": 0,
+          "errors_resolved": 0,
+          "workflow_followed": 0,
+          "workflow_violated": 0
+        }
+      },
+      "Cursor": {
+        "role": "Architect",
+        "summary": {
+          "issue_completion_rate": 0.0,
+          "pr_merge_rate": 0.0,
+          "response_rate": 0.0,
+          "backup_activation_rate": 0.0,
+          "process_compliance_rate": 100.0,
+          "error_resolution_rate": 100.0
+        },
+        "detailed": {
+          "ai_name": "Cursor",
+          "role": "Architect",
+          "issues": {
+            "issues_assigned": 0,
+            "issues_acknowledged": 0,
+            "issues_started": 0,
+            "issues_completed": 0,
+            "issues_abandoned": 0,
+            "time_to_start_sum": 0.0,
+            "time_to_start_count": 0,
+            "time_to_complete_sum": 0.0,
+            "time_to_complete_count": 0
+          },
+          "prs": {
+            "prs_created": 0,
+            "prs_updated": 0,
+            "pr_descriptions_written": 0,
+            "review_requested": 0,
+            "reviews_received": 0,
+            "reviews_given": 0,
+            "review_comments_addressed": 0,
+            "pr_merged": 0,
+            "pr_closed": 0
+          },
+          "responses": {
+            "total_calls": 0,
+            "successful_responses": 0,
+            "failed_responses": 0,
+            "timeout_count": 0,
+            "retry_count": 0,
+            "response_time_sum": 0.0,
+            "response_time_count": 0,
+            "response_time_max": 0.0
+          },
+          "backup": {
+            "times_backed_up": 0,
+            "times_as_backup": 0,
+            "backup_success": 0,
+            "backup_failure": 0,
+            "total_tasks": 0
+          },
+          "errors_encountered": 0,
+          "errors_resolved": 0,
+          "workflow_followed": 0,
+          "workflow_violated": 0
+        }
+      }
+    }
+  },
+  "analysis": {
+    "timestamp": "2025-08-21T21:23:28.315457",
+    "issues": [
+      {
+        "ai": "Codex",
+        "metric": "issue_completion_rate",
+        "expected": 80,
+        "actual": 0.0,
+        "severity": "HIGH"
+      },
+      {
+        "ai": "Claude",
+        "metric": "issue_completion_rate",
+        "expected": 80,
+        "actual": 0.0,
+        "severity": "HIGH"
+      },
+      {
+        "ai": "Cursor",
+        "metric": "issue_completion_rate",
+        "expected": 80,
+        "actual": 0.0,
+        "severity": "HIGH"
+      }
+    ],
+    "recommendations": []
+  }
+}

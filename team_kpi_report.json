@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-08-21T20:32:36.430591",
+  "uptime_minutes": 0,
+  "team_performance": {
+    "Gemini": {
+      "role": "Frontend/UI Lead",
+      "performance_score": 63.6,
+      "metrics": {
+        "avg_response_time": 6.1,
+        "tasks_completed": 2,
+        "error_count": 0,
+        "availability": "100%"
+      }
+    },
+    "Codex": {
+      "role": "Backend Engineer",
+      "performance_score": 67.0,
+      "metrics": {
+        "avg_response_time": 4.49,
+        "tasks_completed": 1,
+        "error_count": 0,
+        "availability": "100%"
+      }
+    },
+    "Claude": {
+      "role": "PM & QA",
+      "performance_score": 83.1,
+      "metrics": {
+        "avg_response_time": 0.49,
+        "tasks_completed": 1,
+        "error_count": 0,
+        "availability": "100%"
+      }
+    },
+    "Cursor": {
+      "role": "Architect",
+      "performance_score": 60.0,
+      "metrics": {
+        "avg_response_time": 0,
+        "tasks_completed": 0,
+        "error_count": 0,
+        "availability": "100%"
+      }
+    }
+  },
+  "team_average_score": 68.4
+}

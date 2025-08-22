@@ -1,0 +1,109 @@
+{
+  "ai_orchestra_task": {
+    "id": "",
+    "title": "",
+    "description": "",
+    "assignee": {
+      "name": "",
+      "session": "",
+      "mode": "",
+      "specialization": []
+    },
+    "priority": "medium",
+    "status": "pending",
+    "type": "implementation",
+    "estimated_duration": "",
+    "dependencies": [],
+    "github_issue": {
+      "number": null,
+      "url": "",
+      "labels": []
+    },
+    "communication": {
+      "applescript_target": "",
+      "notification_sent": false,
+      "confirmation_received": false,
+      "last_update": ""
+    },
+    "progress": {
+      "percentage": 0,
+      "checkpoints": [],
+      "blockers": [],
+      "files_modified": [],
+      "commits": []
+    },
+    "quality_assurance": {
+      "review_required": true,
+      "reviewer": "",
+      "tests_required": true,
+      "documentation_required": true
+    },
+    "metadata": {
+      "created_at": "",
+      "updated_at": "",
+      "completed_at": "",
+      "created_by": "PM Claude",
+      "tags": []
+    }
+  },
+  "task_types": {
+    "implementation": "Code development and implementation tasks",
+    "review": "Code review and quality assurance tasks", 
+    "documentation": "Documentation creation and updates",
+    "research": "Research and analysis tasks",
+    "automation": "Script creation and process automation",
+    "integration": "System integration and API work",
+    "testing": "Testing and validation tasks",
+    "monitoring": "System monitoring and maintenance"
+  },
+  "ai_specializations": {
+    "claude": ["code_review", "documentation", "best_practices", "architecture"],
+    "gemini": ["research", "data_analysis", "shell_scripting", "system_monitoring"],
+    "codex": ["code_generation", "automation", "api_development", "testing"],
+    "cursor": ["ui_development", "interactive_coding", "component_creation", "styling"]
+  },
+  "communication_templates": {
+    "task_assignment": "[{assignee}] 🎯 새 작업 할당: {title}\\n\\n📋 설명: {description}\\n\\n⏱️ 예상 시간: {duration}\\n\\n🔗 GitHub Issue: {github_url}\\n\\n✅ 확인 댓글로 응답해주세요.",
+    "progress_request": "[{assignee}] 📊 진행 상황 보고 요청\\n\\n현재 작업: {title}\\n마지막 업데이트: {last_update}\\n\\n30분 간격 보고 부탁드립니다.",
+    "completion_check": "[{assignee}] ✅ 작업 완료 확인\\n\\n작업: {title}\\n완료 여부를 댓글로 알려주세요.",
+    "blocker_escalation": "[PM Claude] 🚨 블로커 발생\\n\\n작업자: {assignee}\\n작업: {title}\\n블로커: {blocker_description}\\n\\n즉시 지원이 필요합니다."
+  },
+  "applescript_targets": {
+    "claude": "session 1 of current tab of current window",
+    "gemini": "session 2 of current tab of current window", 
+    "codex": "session 4 of current tab of current window",
+    "cursor": "application \"Cursor\""
+  },
+  "workflow_stages": [
+    {
+      "stage": "created",
+      "description": "Task created in system",
+      "automated_actions": ["create_github_issue", "assign_based_on_specialization"]
+    },
+    {
+      "stage": "assigned", 
+      "description": "Task assigned to AI team member",
+      "automated_actions": ["send_notification", "set_progress_timer"]
+    },
+    {
+      "stage": "acknowledged",
+      "description": "AI team member confirmed receipt",
+      "automated_actions": ["update_github_issue", "start_monitoring"]
+    },
+    {
+      "stage": "in_progress",
+      "description": "Work actively being performed",
+      "automated_actions": ["monitor_file_changes", "track_progress_reports"]
+    },
+    {
+      "stage": "review",
+      "description": "Work completed, under review",
+      "automated_actions": ["assign_reviewer", "run_automated_tests"]
+    },
+    {
+      "stage": "completed",
+      "description": "Task fully completed and approved",
+      "automated_actions": ["close_github_issue", "update_metrics", "archive_task"]
+    }
+  ]
+}
